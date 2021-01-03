@@ -1,0 +1,36 @@
+{
+  "name": "health-Care",
+  "description": "something",
+  "dependencies": {
+    "@fabricelements/skeleton-carousel": "^3.0.2",
+    "@graviton/button": "^1.1.9",
+    "@polymer/app-layout": "^3.1.0",
+    "@polymer/app-route": "^3.0.2",
+    "@polymer/iron-flex-layout": "^3.0.1",
+    "@polymer/iron-form": "^3.0.1",
+    "@polymer/iron-icon": "^3.0.1",
+    "@polymer/iron-icons": "^3.0.1",
+    "@polymer/iron-image": "^3.0.2",
+    "@polymer/iron-list": "^3.1.0",
+    "@polymer/iron-pages": "^3.0.1",
+    "@polymer/iron-selector": "^3.0.1",
+    "@polymer/neon-animation": "^3.0.1",
+    "@polymer/paper-button": "^3.0.1",
+    "@polymer/paper-dropdown-menu": "^3.1.0",
+    "@polymer/paper-header-panel": "^3.0.1",
+    "@polymer/paper-icon-button": "^3.0.2",
+    "@polymer/paper-input": "^3.2.1",
+    "@polymer/paper-item": "^3.0.1",
+    "@polymer/paper-listbox": "^3.0.1",
+    "@polymer/paper-toolbar": "^3.0.1",
+    "@polymer/polymer": "^3.0.0",
+    "web-animations-js": "^2.3.2"
+  },
+  "devDependencies": {
+    "@polymer/test-fixture": "^4.0.2",
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "wct-mocha": "^1.0.1"
+  }
+}

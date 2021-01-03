@@ -1,0 +1,7 @@
+{
+  "name": "health-Care",
+  "short_name": "health-Care",
+  "description": "something",
+  "start_url": "/",
+  "display": "standalone"
+}
