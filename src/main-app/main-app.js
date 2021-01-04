@@ -1,4 +1,5 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+import { setPassiveTouchGestures, setRootPath } from '@polymer/polymer/lib/utils/settings.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import '@polymer/app-layout/app-scroll-effects/app-scroll-effects.js';
@@ -27,6 +28,15 @@ import'../admin-login/admin-login';
  * @customElement
  * @polymer
  */
+
+ // Gesture events like tap and track generated from touch will not be
+// preventable, allowing for better scrolling performance.
+setPassiveTouchGestures(true);
+
+// Set Polymer's root path to the same value we passed to our service worker
+// in `index.html`.
+setRootPath(MyAppGlobals.rootPath);
+
 class MainApp extends PolymerElement {
   
   static get template() {
@@ -107,6 +117,9 @@ class MainApp extends PolymerElement {
     #scrim.visible{
       opacity: 0 !important;
     }
+    iron-selector{
+      display: contents;
+    }
    
     @media (max-width: 1200px) {
       .tabs-left a {
@@ -151,9 +164,9 @@ class MainApp extends PolymerElement {
     }
   </style>
 
-  <app-location route="{{route}}"></app-location>
+  <app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>
 
-  <app-route  route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
+  <app-route  route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
 
 
   <!-- app-header-layout --!>
@@ -166,16 +179,16 @@ class MainApp extends PolymerElement {
 
       <app-toolbar class="toolbar">
       <paper-icon-button icon="menu" class="menu-btn"  on-click="_toggleDrawer"></paper-icon-button>
-
+      <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
         <div class="tabs-left">
           <div>
               <a class="">
               <img src="../../images/logo.png">
               </a>
               <span class="header-menu btn-hover">
-              <a href="home">Home</a>
-              <a href="about">About</a>
-              <a href="department">Department</a>
+              <a name="home" href="[[rootPath]]home">Home</a>
+              <a name="about" href="[[rootPath]]about">About</a>
+              <a name="department" href="[[rootPath]]department">Department</a>
               <a href="">Doctors</a>
               <a href="">Contact</a>
               </span>
@@ -184,11 +197,11 @@ class MainApp extends PolymerElement {
 
         <div class="tabs-right">
           <div class="header-menu">
-          <span> <a  href="login">Admin Login</a></span>
-          <button class="btn"> <a href="appointment">Appointment</a></button>
+          <span> <a  name="login" href="[[rootPath]]login">Admin Login</a></span>
+          <button class="btn"> <a name="appointment" href="[[rootPath]]appointment">Appointment</a></button>
           </div>
         </div>
-
+        </iron-selector>
       </app-toolbar>
      
     </app-header>
@@ -199,16 +212,16 @@ class MainApp extends PolymerElement {
   <!-- app-drawer --!>
   
   <app-drawer opened="{{drawerOpened}}" swipe-open="" tabindex="0">
-
+  <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
   <app-toolbar>
   <paper-icon-item  on-click="_toggleDrawer">
-  <paper-item> <a  href="home">Home</a></paper-item>
+  <paper-item> <a  name="home" href="[[rootPath]]home">Home</a></paper-item>
   </app-toolbar>
  
 
   <app-toolbar>
   <paper-icon-item on-click="_toggleDrawer">
-  <paper-item > <a href="about" >About </a></paper-item>
+  <paper-item > <a name="about" href="[[rootPath]]about" >About </a></paper-item>
   </app-toolbar>
 
 
@@ -229,12 +242,12 @@ class MainApp extends PolymerElement {
   <paper-item>Contact</paper-item>
   </app-toolbar>
 
-  
+  </iron-selector>
 </app-drawer>
 
 <!-- page routing or navigation --!>
 
-<iron-pages role="main" selected="[[page]]" attr-for-selected="name"  fallback-selection="404">
+<iron-pages role="main" selected="[[page]]" attr-for-selected="name"  role="main">
 <home-comp name="home" class="z-index"></home-comp>
 <about-comp name="about"  route="[[subroute]]"></about-comp>
 <contact-comp name="contact"></contact-comp>
@@ -243,7 +256,7 @@ class MainApp extends PolymerElement {
 
 
 
-<departments-comp></departments-comp>
+<departments-comp name="department"></departments-comp>
     `;
   }
   static get properties() {
@@ -253,6 +266,9 @@ class MainApp extends PolymerElement {
             reflectToAttribute :true,
             observer:'_pageChanged'
         },
+        routeData: Object,
+        subroute: Object,
+
         drawerOpened:{
           type: false,
         }
@@ -266,29 +282,36 @@ static get observers(){
 
 _routerChanged(page){
     console.log('page', page)
-    this.page = page || 'home';
+    if (!page) {
+      this.page = 'home';
+    } else if (['home', 'about', 'login', 'appointment','department'].indexOf(page) !== -1) {
+      this.page = page;
+    } else {
+      this.page = 'view404';
+    }
 
 }
 
-_pageChanged(currentPage, oldPage){
-    console.log('currentPage, oldPage', currentPage, oldPage)
-    switch(currentPage){
+_pageChanged(page){
+    console.log('currentPage, oldPage',page)
+    switch(page){
 
      
         case 'home' : 
-            import('../home/home').then( 
-              ()=>{this.drawerOpened; console.log('this.drawerOpened',this.drawerOpened)}
-            )
+            import('../home/home');
 
             break;
         case 'about':
-            import('../about/about').then( )
+            import('../about/about');
             break;
+        case 'department':
+            import('../departments/departments');
+             break;
         case 'appointment':
-            import('../appointment/appointment').then( )
+            import('../appointment/appointment');
              break;
         case 'login' : 
-            import('../admin-login/admin-login').then()
+            import('../admin-login/admin-login');
             break;
         default : this.page='home';
         

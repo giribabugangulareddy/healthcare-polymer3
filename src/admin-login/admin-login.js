@@ -8,15 +8,7 @@ import '@polymer/paper-input/paper-input.js';
 
 
 class AdminLogin extends PolymerElement {
-  static get properties() {
-    return {
-        
-      selected: {
-            type: String,
-            value: ''
-        }
-    }
-  }
+  
 
     static get template() {
       return html`
@@ -81,7 +73,7 @@ class AdminLogin extends PolymerElement {
 
 
 
-
+      <app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>
      <div class="bg-color">
         <div class="center-box">
         <div class="login-frem">
@@ -102,14 +94,15 @@ class AdminLogin extends PolymerElement {
           </iron-form>
         </div>
         </div>
-       
+      
+       <h1>{{myname}}</h1>
      </div>
     
       
       
       `
 
-    }
+    };
     static get properties() {
       return {
           
@@ -121,9 +114,14 @@ class AdminLogin extends PolymerElement {
             type: String,
             value:"required",
             notify: true,
+          },
+
+          myname:{
+            type:String,
+            notify:true
           }
-      }
-    }
+      };
+    };
 
 
 
@@ -131,23 +129,27 @@ class AdminLogin extends PolymerElement {
     submitHandler() {
       
       this.$.formOne.submit();
-    }
+    };
     onResponse(e) {
       
-      console.log('e.detail.response.form', e.detail.response.form)
+      console.log('e.detail.response.form', e.detail.response.form);
       this.response = e.detail.response.form
 
       if(this.response.email != 'admin@gmail.com'){
-        
         this.errorMsg = "Invalid credentials";
+
       }else if(this.response.password != 'admin'){
         this.errorMsg = "Invalid credentials";
+
       }else{
-        this.errorMsg=""
-        console.log(' this.response',  this.response)
-         return true;
+        this.errorMsg="";
+        console.log(' this.response',  this.response);
+
+        this.set('route.path', '/home');
+        this.$.formOne.reset();
+         
         
-      }
+      };
       
     }
 }

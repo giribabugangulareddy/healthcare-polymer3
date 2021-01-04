@@ -1,9 +1,9 @@
 import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
 import '@polymer/iron-image/iron-image.js';
-// import'../departments/departments.js';
-import'../about/about.js';
+import'../departments/departments.js';
 
 class Home extends PolymerElement {
+  
   static get template() {
     return html`
       <style>
@@ -28,7 +28,7 @@ class Home extends PolymerElement {
       <div >
 <img sizing="cover" class="img-fluid" preload src="../../images/doctor.jpg" />
 </div>
-<about-comp></about-comp>
+<departments-comp></departments-comp>
 <h1>Am Home </h1>
       `
 

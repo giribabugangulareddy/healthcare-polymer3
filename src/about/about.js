@@ -1,6 +1,7 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 
 import '@polymer/iron-image/iron-image.js';
+import '../admin-login/admin-login';
 
 
 class About extends PolymerElement {
@@ -104,12 +105,23 @@ class About extends PolymerElement {
       <iron-image class="image"  preload src="../../images/depart6.jpg"></iron-image>
       <p class="caption">Detail Care</p>
       </div>
-      
+      <admin-login myname="[[myname]]"></admin-login>
       
     </div>
     </div>
-
+    
       `
+     
+    }
+    static get properties() {
+      return {
+        myname:{
+          type:String,
+          value:"Giribabu",
+          notify:true
+        }
+       
+      }
 
     }
 }
