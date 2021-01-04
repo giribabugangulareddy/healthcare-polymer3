@@ -28,10 +28,21 @@ class Home extends PolymerElement {
       <div >
 <img sizing="cover" class="img-fluid" preload src="../../images/doctor.jpg" />
 </div>
-<departments-comp></departments-comp>
-<h1>Am Home </h1>
+<departments-comp myname="[[myname]]"></departments-comp>
+<h1>{{myname}}</h1>
+
       `
 
+  }
+
+  static get properties() {
+    return {
+      myname:{
+        type:String,
+        notify:true,
+        
+      }
+    }
   }
 }
 

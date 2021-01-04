@@ -77,15 +77,23 @@ class BookingSummary extends PolymerElement {
                 </div>
             </div>
       </div>
+      <h1>{{loginData}}</h1>
       `
      
     }
     static get properties() {
       return {
-        
+        loginData:{
+             type:String,
+             
+         }
        
-      }
+      };
 
+    };
+
+    _getappointData(){
+        console.log('_getappointData')
     }
 }
 

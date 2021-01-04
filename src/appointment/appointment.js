@@ -188,7 +188,7 @@ class Appointment extends PolymerElement {
   }
       </style>
 
-     
+<app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>   
 <div class="bg-color">
 
 <div>
@@ -352,7 +352,9 @@ class Appointment extends PolymerElement {
       username: this.response.patientName
     }
     console.log('data', this.sourceData)
-    
+    localStorage.setItem('appointmentData',JSON.stringify(this.sourceData));
+    this.set('route.path', '/booking-summary');
+    this.$.formOne.reset();
   }
 }
 

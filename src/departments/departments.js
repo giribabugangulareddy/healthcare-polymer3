@@ -103,8 +103,6 @@ class Departments extends PolymerElement {
     <iron-image class="image"  preload src="../../images/depart6.jpg"></iron-image>
     <p class="caption">Detail Care</p>
     </div>
-    <admin-login myname="[[myname]]"></admin-login>
-    
   </div>
   </div>
   

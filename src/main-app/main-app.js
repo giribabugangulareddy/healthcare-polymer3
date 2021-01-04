@@ -58,6 +58,7 @@ class MainApp extends PolymerElement {
       box-shadow: 0px 1px 10px #999;
       left:0 !important;
       right:0 !important;
+      background: #fff;
     }
     .btn-hover a:hover,  .btn-hover a:active
     {
@@ -72,6 +73,7 @@ class MainApp extends PolymerElement {
     padding:15px;
     font-family: sans-serif;
     font-size: 15px;
+    cursor: pointer;
      
     }
     .tabs-left a{
@@ -198,8 +200,14 @@ class MainApp extends PolymerElement {
 
         <div class="tabs-right">
           <div class="header-menu">
-          <span> <a  name="login" href="[[rootPath]]login">Admin Login</a></span>
-          <button class="btn"> <a name="appointment" href="[[rootPath]]appointment">Appointment</a></button>
+         <!-- <span> <a  name="login" href="[[rootPath]]login">Admin Login</a></span> --!>
+
+         <template is="dom-if" if="{{loginData}}">
+         <span> <a  on-click="clearStorege"> Logout</a></span>
+         </template>
+         <template is="dom-if" if="{{!loginData}}">
+          <button class="btn"> <a name="appointment" href="[[rootPath]]login">Appointment</a></button>
+          </template>
           </div>
         </div>
         </iron-selector>
@@ -243,6 +251,20 @@ class MainApp extends PolymerElement {
   <paper-item>Contact</paper-item>
   </app-toolbar>
 
+  <app-toolbar>
+  <template is="dom-if" if="{{loginData}}" >
+  <paper-icon-item on-click="_toggleDrawer">
+  <paper-item on-click="clearStorege">Logout</paper-item>
+  </template>
+  </app-toolbar>
+
+  <app-toolbar>
+  <template is="dom-if" if="{{!loginData}}">
+  <paper-icon-item on-click="_toggleDrawer">
+  <paper-item> <button class="btn"> <a name="login" href="[[rootPath]]login">Appointment</a></button></paper-item>
+  </template>
+  </app-toolbar>
+
   </iron-selector>
 </app-drawer>
 
@@ -259,6 +281,7 @@ class MainApp extends PolymerElement {
 
     `;
   }
+
   static get properties() {
     return{
         page:{
@@ -271,6 +294,9 @@ class MainApp extends PolymerElement {
 
         drawerOpened:{
           type: false,
+        },
+        loginData:{
+          type:String
         }
     }
 };
@@ -286,6 +312,9 @@ _routerChanged(page){
       this.page = 'home';
     } else if (['home', 'about', 'login', 'appointment','department','booking-summary'].indexOf(page) !== -1) {
       this.page = page;
+
+      this.loginData = localStorage.getItem('credentials');
+        console.log(' this.data',JSON.parse( this.loginData));
     } 
 
 }
@@ -323,6 +352,13 @@ _pageChanged(page){
     console.log( ' this.drawerOpened',this.drawerOpened)
     this.drawerOpened = !this.drawerOpened;
   }
+
+  clearStorege(){
+    console.log('fasfasd')
+    localStorage.clear();
+    this.set('route.path', '/home');
+  }
 }
+
 
 window.customElements.define('main-app', MainApp);

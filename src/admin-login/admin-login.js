@@ -133,8 +133,12 @@ class AdminLogin extends PolymerElement {
     };
     onResponse(e) {
       
+      
       console.log('e.detail.response.form', e.detail.response.form);
-      this.response = e.detail.response.form
+      this.response = e.detail.response.form;
+
+      // var data = localStorage.getItem('credentials');
+      //   console.log(' this.data',JSON.parse( data));
 
       if(this.response.email != 'admin@gmail.com'){
         this.errorMsg = "Invalid credentials";
@@ -144,10 +148,16 @@ class AdminLogin extends PolymerElement {
 
       }else{
         this.errorMsg="";
-        console.log(' this.response',  this.response);
 
-        this.set('route.path', '/booking-summary');
+        console.log(' this.response',  this.response);
+        localStorage.setItem('credentials',JSON.stringify(this.response))
+
+        
+
+        this.set('route.path', '/appointment');
+       
         this.$.formOne.reset();
+        
          
         
       };
