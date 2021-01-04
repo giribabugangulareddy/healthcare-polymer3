@@ -52,6 +52,12 @@ class AdminLogin extends PolymerElement {
       background: #337ab7;
       color:#fff;
     }
+    .errmsg{
+      text-align:right;
+      color:red;
+      font-family: 'Roboto';
+      margin: 4px;
+    }
 
     
     @media (max-width: 1200px) {
@@ -83,10 +89,12 @@ class AdminLogin extends PolymerElement {
           <iron-form id="formOne" on-iron-form-response="onResponse">
               <form method="post" action="https://httpbin.org/post" is="iron-form">
               
-                <paper-input name="email" placeholder="email"></paper-input>
+                <paper-input name="email" placeholder="email"  auto-validate pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  error-message="{{errorMessage}} email" required ></paper-input>
 
-                <paper-input type="password" name="password" placeholder="password"></paper-input>
-
+                <paper-input type="password" name="password" placeholder="password" minlength="4" auto-validate error-message="{{errorMessage}} password" required></paper-input>
+                <div class="errmsg">
+                <small>{{errorMsg}}</small>
+                </div>
                 <div class="btn-align">
                 <paper-button  raised class=" indigo" on-tap="submitHandler">Submit</paper-button>
                 </div>
@@ -102,15 +110,44 @@ class AdminLogin extends PolymerElement {
       `
 
     }
+    static get properties() {
+      return {
+          
+        response: {
+              type: String,
+             observer:'validators'
+          },
+          errorMessage:{
+            type: String,
+            value:"required",
+            notify: true,
+          }
+      }
+    }
 
 
 
 
     submitHandler() {
+      
       this.$.formOne.submit();
     }
     onResponse(e) {
-      this.response = JSON.stringify(e.detail.response.form, null, 2);
+      
+      console.log('e.detail.response.form', e.detail.response.form)
+      this.response = e.detail.response.form
+
+      if(this.response.email != 'admin@gmail.com'){
+        
+        this.errorMsg = "Invalid credentials";
+      }else if(this.response.password != 'admin'){
+        this.errorMsg = "Invalid credentials";
+      }else{
+        this.errorMsg=""
+        console.log(' this.response',  this.response)
+         return true;
+        
+      }
       
     }
 }
