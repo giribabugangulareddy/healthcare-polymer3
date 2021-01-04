@@ -116,7 +116,8 @@ class Departments extends PolymerElement {
       myname:{
         type:String,
         value:"Giribabu",
-        notify:true
+        notify:true,
+        
       }
      
     }

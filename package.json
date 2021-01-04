@@ -25,6 +25,8 @@
     "@polymer/paper-listbox": "^3.0.1",
     "@polymer/paper-toolbar": "^3.0.1",
     "@polymer/polymer": "^3.0.0",
+    "@vaadin/vaadin-grid": "^5.7.7",
+    "@vaadin/vaadin-select": "^2.4.0",
     "web-animations-js": "^2.3.2"
   },
   "devDependencies": {

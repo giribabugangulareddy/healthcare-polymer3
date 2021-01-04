@@ -24,6 +24,7 @@ import'../departments/departments.js';
 import'../appointment/appointment';
 import'../admin-login/admin-login';
 
+
 /**
  * @customElement
  * @polymer
@@ -253,10 +254,9 @@ class MainApp extends PolymerElement {
 <contact-comp name="contact"></contact-comp>
 <appointment-comp name="appointment"></appointment-comp>
 <admin-login  name="login" ></admin-login>
-
-
-
 <departments-comp name="department"></departments-comp>
+<booking-summary-comp name="booking-summary"></booking-summary-comp>
+
     `;
   }
   static get properties() {
@@ -284,11 +284,9 @@ _routerChanged(page){
     console.log('page', page)
     if (!page) {
       this.page = 'home';
-    } else if (['home', 'about', 'login', 'appointment','department'].indexOf(page) !== -1) {
+    } else if (['home', 'about', 'login', 'appointment','department','booking-summary'].indexOf(page) !== -1) {
       this.page = page;
-    } else {
-      this.page = 'view404';
-    }
+    } 
 
 }
 
@@ -312,6 +310,9 @@ _pageChanged(page){
              break;
         case 'login' : 
             import('../admin-login/admin-login');
+            break;
+        case 'booking-summary' : 
+            import('../booking-summary/booking-summary');
             break;
         default : this.page='home';
         

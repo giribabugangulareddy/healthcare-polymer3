@@ -3,7 +3,7 @@ import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import '@polymer/iron-input/iron-input.js';
 import '@polymer/paper-button/paper-button.js';
 import '@polymer/iron-form/iron-form.js';
-import '@polymer/paper-input/paper-input.js';
+
 
 
 
@@ -118,7 +118,8 @@ class AdminLogin extends PolymerElement {
 
           myname:{
             type:String,
-            notify:true
+            notify:true,
+            
           }
       };
     };
@@ -145,7 +146,7 @@ class AdminLogin extends PolymerElement {
         this.errorMsg="";
         console.log(' this.response',  this.response);
 
-        this.set('route.path', '/home');
+        this.set('route.path', '/booking-summary');
         this.$.formOne.reset();
          
         

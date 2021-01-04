@@ -11,6 +11,7 @@ import '@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
 import '@polymer/paper-item/paper-item.js';
 import '@polymer/paper-listbox/paper-listbox.js';
 import '@polymer/paper-button/paper-button.js';
+import '@polymer/iron-selector/iron-selector.js';
 
 class Appointment extends PolymerElement {
   static get template() {
@@ -134,6 +135,11 @@ class Appointment extends PolymerElement {
         color: white !important;
       };
     }
+    .margin-btm{
+      
+    margin-bottom: 5px;
+
+    }
 
     @media (max-width: 1200px) {
 
@@ -199,76 +205,75 @@ class Appointment extends PolymerElement {
         <iron-form id="formOne" on-iron-form-response="onResponse">
           <form method="post" action="https://httpbin.org/post" is="iron-form">
 
-          <paper-input label="User Name" name="username" auto-validate pattern="[a-zA-Z]*" error-message="letters only!" value=""></paper-input>
+          <paper-input label="Patient Name" name="patientName" auto-validate pattern="[a-zA-Z]*" error-message="Enter Patient Name " required value=""></paper-input>
             
-          <paper-input label="Phone Number" name="phone" auto-validate pattern="[0-9]*" error-message="letters only!" value=""></paper-input>
+          <paper-input label="Phone Number" name="phone" auto-validate pattern="[0-9]*" maxlength="10" minlength="10" error-message="Enter Phone Number & should be 10 digits" required value=""></paper-input>
 
-         <div>
-         <paper-dropdown-menu label="Select Service" >
-         <paper-listbox slot="dropdown-content" name="Service" selected="{{selected}}" class="dropdown-content custom" horizontalAlign='left'>
-           <paper-item >Gynaecology</paper-item>
-           <paper-item>Orthopaedics</paper-item>
-           <paper-item>Lense Expert</paper-item>
-           <paper-item>Cardiology</paper-item>
-           <paper-item>Associate Eye</paper-item>
-           <paper-item>Gastroenterology</paper-item>
+         <div class="margin-btm">
+         <paper-dropdown-menu label="Select Service" auto-validate required error-message="Please Select Service ">
+         <paper-listbox slot="dropdown-content" name="Service" id="service" attr-for-selected="value"   class="dropdown-content  custom" horizontalAlign='left'>
+           <paper-item value="Gynaecology">Gynaecology</paper-item>
+           <paper-item value="Orthopaedics">Orthopaedics</paper-item>
+           <paper-item value="Lense Expert">Lense Expert</paper-item>
+           <paper-item value="Cardiology">Cardiology</paper-item>
+           <paper-item value="Associate Eye">Associate Eye</paper-item>
+           <paper-item value="Gastroenterology">Gastroenterology</paper-item>
          </paper-listbox>
       </paper-dropdown-menu>
          </div>
 
-         <div>
-         <paper-dropdown-menu label="Select Doctor" >
-         <paper-listbox slot="dropdown-content" selected="1" class="dropdown-content custom" horizontalAlign='left'>
-           <paper-item >Dr. Zinia Zara</paper-item>
-           <paper-item>Dr. Nadim Kamal</paper-item>
-           <paper-item>Dr. Rihana Roy</paper-item>
-           <paper-item>Dr. Steven Roy</paper-item>
-           <paper-itemDr. Johora Roy</paper-item>
-           <paper-item>Dr. Jason Roy</paper-item>
+         <div class="margin-btm">
+         <paper-dropdown-menu label="Select Doctor" auto-validate required error-message="Please Select Doctor">
+         <paper-listbox slot="dropdown-content" name="doctor" id="doctor" attr-for-selected="value"  class="dropdown-content custom" required horizontalAlign='left'>
+           <paper-item value="Dr. Zinia Zara">Dr. Zinia Zara</paper-item>
+           <paper-item value="Dr. Nadim Kamal">Dr. Nadim Kamal</paper-item>
+           <paper-item value="Dr. Rihana Roy">Dr. Rihana Roy</paper-item>
+           <paper-item value="Dr. Steven Roy">Dr. Steven Roy</paper-item>
+           <paper-item value="Dr. Johora Roy"> Dr. Johora Roy</paper-item>
+           <paper-item value="Dr. Jason Roy">Dr. Jason Roy</paper-item>
          </paper-listbox>
       </paper-dropdown-menu>
          </div>
 
-         <div>
-         <paper-dropdown-menu label=" Select Available Date" >
-         <paper-listbox slot="dropdown-content" selected="1" class="dropdown-content custom" horizontalAlign='left'>
-           <paper-item>January 10, 2021</paper-item>
-           <paper-item>January 11, 2021</paper-item>
-           <paper-item>January 12, 2021</paper-item>
-           <paper-item>January 13, 2021</paper-item>
-           <paper-item>January 14, 2021</paper-item>
-           <paper-item>January 15, 2021</paper-item>
-         </paper-listbox>
-      </paper-dropdown-menu>
-         </div>
-
-
-         <div>
-         <paper-dropdown-menu label="Select Time" >
-         <paper-listbox slot="dropdown-content" selected="1" class="dropdown-content custom" horizontalAlign='left'>
-           <paper-item >10:00 AM</paper-item>
-           <paper-item>11:00 AM</paper-item>
-           <paper-item>12:00 PM</paper-item>
-           <paper-item>02:00 PM</paper-item>
-           <paper-item>03:00 PM</paper-item>
-           <paper-item>04:00 PM</paper-item>
+         <div class="margin-btm">
+         <paper-dropdown-menu label=" Select Available Date" auto-validate required error-message="Please Select Available Date">
+         <paper-listbox slot="dropdown-content" id="availableDate" attr-for-selected="value"   class="dropdown-content custom" horizontalAlign='left'>
+           <paper-item value="January 10, 2021">January 10, 2021</paper-item>
+           <paper-item value="January 11, 2021">January 11, 2021</paper-item>
+           <paper-item value="January 12, 2021">January 12, 2021</paper-item>
+           <paper-item value="January 13, 2021">January 13, 2021</paper-item>
+           <paper-item value="January 14, 2021">January 14, 2021</paper-item>
+           <paper-item value="January 15, 2021">January 15, 2021</paper-item>
          </paper-listbox>
       </paper-dropdown-menu>
          </div>
 
 
-         <div>
-         <paper-dropdown-menu label="Select Appointment Fee" >
-         <paper-listbox slot="dropdown-content" selected="" class="dropdown-content custom" horizontalAlign='left'>
-         <paper-item >Select Fee</paper-item>
-           <paper-item >Adult (Rs 400/-)</paper-item>
-           <paper-item >Child (Rs 200/-)</paper-item>
+         <div class="margin-btm">
+         <paper-dropdown-menu label="Select Available Time" auto-validate required error-message="Please Select Available Time">
+         <paper-listbox slot="dropdown-content" id="availableTime" attr-for-selected="value"  class="dropdown-content custom" horizontalAlign='left'>
+           <paper-item value="10:00 AM">10:00 AM</paper-item>
+           <paper-item value="11:00 AM">11:00 AM</paper-item>
+           <paper-item value="12:00 AM">12:00 PM</paper-item>
+           <paper-item value="13:00 AM">02:00 PM</paper-item>
+           <paper-item value="14:00 AM">03:00 PM</paper-item>
+           <paper-item value="15:00 AM">04:00 PM</paper-item>
+         </paper-listbox>
+      </paper-dropdown-menu>
+         </div>
+
+
+         <div class="margin-btm">
+         <paper-dropdown-menu label="Select Appointment Fee" auto-validate required error-message="Please Select Appointment Fee">
+         <paper-listbox slot="dropdown-content" id="appointmentFee" attr-for-selected="value"  class="dropdown-content custom" horizontalAlign='left'>
+           <paper-item value="400">Adult (Rs 400/-)</paper-item>
+           <paper-item value="200">Child (Rs 200/-)</paper-item>
           
          </paper-listbox>
       </paper-dropdown-menu>
          </div>
 
-         <div class="sub-btn">
+         <div class="sub-btn margin-btm">
          <paper-button raised class="custom indigo"  on-tap="submitHandler" >Submit</paper-button>
          </div>
           </form>
@@ -316,10 +321,9 @@ class Appointment extends PolymerElement {
   static get properties() {
     return {
         
-      selected: {
-            type: String,
-            value: ''
-        }
+      sourceData:{
+        type:Object
+      }
     }
   }
 
@@ -327,8 +331,27 @@ class Appointment extends PolymerElement {
     this.$.formOne.submit();
   }
   onResponse(e) {
-    this.response = JSON.stringify(e.detail.response.form, null, 2);
-    console.log(' this.response', this.response)
+    var serives = this.$.service.selected;
+    var doctor = this.$.doctor.selected;
+    var date = this.$.availableDate.selected;
+    var time = this.$.availableTime.selected;
+    var fee = this.$.appointmentFee.selected
+
+    console.log('serives',serives);
+    
+    this.response = e.detail.response.form;
+    console.log(' this.response', this.response);
+
+    this.sourceData = {
+      fee : fee,
+      time:time,
+      date:date,
+      doctor:doctor,
+      serviceData : serives,
+      phone : this.response.phone,
+      username: this.response.patientName
+    }
+    console.log('data', this.sourceData)
     
   }
 }
