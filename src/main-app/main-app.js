@@ -17,6 +17,7 @@ import '@polymer/iron-pages/iron-pages.js';
 import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/iron-image/iron-image.js';
+import '@polymer/paper-toast/paper-toast.js';
 
 import '../home/home.js';
 import'../about/about.js';
@@ -174,7 +175,7 @@ class MainApp extends PolymerElement {
 
   <!-- app-header-layout --!>
 
-  <app-header-layout>
+  <app-header-layout  style="z-index:1">
     <app-header reveals effects="waterfall" slot="header">
    
 
@@ -217,7 +218,7 @@ class MainApp extends PolymerElement {
    
   </app-header-layout>
 
-
+  <paper-toast id="toast"></paper-toast>
   <!-- app-drawer --!>
   
   <app-drawer opened="{{drawerOpened}}" swipe-open="" tabindex="0">
@@ -278,6 +279,8 @@ class MainApp extends PolymerElement {
 <admin-login  name="login" ></admin-login>
 <departments-comp name="department"></departments-comp>
 <booking-summary-comp name="booking-summary"></booking-summary-comp>
+
+
 
     `;
   }
@@ -346,18 +349,23 @@ _pageChanged(page){
         default : this.page='home';
         
     }
-}
+};
 
   _toggleDrawer() {
     console.log( ' this.drawerOpened',this.drawerOpened)
     this.drawerOpened = !this.drawerOpened;
-  }
+  };
 
   clearStorege(){
+    this. openToast();
     console.log('fasfasd')
     localStorage.clear();
     this.set('route.path', '/home');
-  }
+  };
+
+  openToast() {
+    this.$.toast.show({text: 'Sucessfully Logout', duration: 3000})
+  };
 }
 
 

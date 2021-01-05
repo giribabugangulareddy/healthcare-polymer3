@@ -55,46 +55,77 @@ class BookingSummary extends PolymerElement {
     }
       </style>
       
-
+      <app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>
       <div class="center-width">
       <div class="bg-clr" >
                 <h2 class="text-center pad-15">Booking Summary</h2>
 
                 <div >
                     <div class="col-sm-12 bg-clr">
-                        <p><span>Doctor Name</span> <span class="pull-right">Giribabu</span></p>
-                        <p><span>Patient Name</span> <span class="pull-right">Giribabu</span></p>
-                        <p><span>Service </span> <span class="pull-right">Giribabu</span></p>
-                        <p><span>Booking Date</span> <span class="pull-right">Giribabu</span></p>
-                        <p><span>Booking Time</span> <span class="pull-right">Giribabu</span></p>
-                        <p><span>Consulting fee </span> <span class="pull-right"> ₹200 /-</span></p>
-                        <p><span>Booking fee(10%) </span> <span class="pull-right">₹20 /-</span></p>
+                    <dom-repeat items="{{appointmentData}}">
+                    <template>
+                        <p><span>Doctor Name</span> <span class="pull-right">{{item.doctor}}</span></p>
+                        <p><span>Patient Name</span> <span class="pull-right">{{item.username}}</span></p>
+                        <p><span>Service </span> <span class="pull-right">{{item.serviceData}}</span></p>
+                        <p><span>Booking Date</span> <span class="pull-right">{{item.date}}</span></p>
+                        <p><span>Booking Time</span> <span class="pull-right">{{item.time}}</span></p>
+                        <p><span>Consulting fee </span> <span class="pull-right"> ₹{{item.fee}} /-</span></p>
+                        <p><span>Booking fee(10%) </span> <span class="pull-right">₹{{bookinFee}} /-</span></p>
                         <hr>
-                        <p><span>Total fee</span> <span class="pull-right">Rs 220 /-</span></p>
-                        
-                        <paper-button  raised class="indigo">Make Payment</paper-button>
+                        <p><span>Total fee</span> <span class="pull-right">Rs {{total}} /-</span></p>
+                    </template>
+                    </dom-repeat>
+                        <paper-button  raised class="indigo" on-click="payment">Make Payment</paper-button>
                     </div>
                 </div>
             </div>
       </div>
-      <h1>{{loginData}}</h1>
+
+
+
       `
      
     }
+    constructor() {
+        super();
+        this._getappointData();
+      }
     static get properties() {
       return {
-        loginData:{
-             type:String,
-             
-         }
-       
+
+         appointmentData:Array,
+         total:Number,
+         bookinFee:Number
       };
 
     };
 
+    // get appointment data from localstorage
     _getappointData(){
-        console.log('_getappointData')
-    }
+        
+       var data = JSON.parse(localStorage.getItem('appointmentData'));
+
+       this.appointmentData =[];
+
+       this.appointmentData.push(data);
+
+    // calculating the bookingfee and total fee of customer
+       this.appointmentData.forEach(element => {
+           
+           this.bookinFee = ((element.fee * 10) / 100);
+           this.total = Number(this.bookinFee) + Number(element.fee);
+           console.log(' this.bookinFee',  this.bookinFee, 'this.total', this.total)
+       });
+
+       
+   
+    };
+
+    // redirect url to home
+    payment(){
+        
+        this.set('route.path', '/home');
+    };
 }
 
 

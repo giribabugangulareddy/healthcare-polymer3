@@ -1,5 +1,5 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-
+import '@polymer/paper-toast/paper-toast.js';
 import '@polymer/iron-input/iron-input.js';
 import '@polymer/paper-button/paper-button.js';
 import '@polymer/iron-form/iron-form.js';
@@ -77,13 +77,13 @@ class AdminLogin extends PolymerElement {
      <div class="bg-color">
         <div class="center-box">
         <div class="login-frem">
-        <h1>Admin Login </h1>
+        <h1>User Login </h1>
           <iron-form id="formOne" on-iron-form-response="onResponse">
               <form method="post" action="https://httpbin.org/post" is="iron-form">
               
-                <paper-input name="email" placeholder="email"  auto-validate pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  error-message="{{errorMessage}} email" required ></paper-input>
+                <paper-input name="email" placeholder="Email"  auto-validate pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  error-message="{{errorMessage}} email" required ></paper-input>
 
-                <paper-input type="password" name="password" placeholder="password" minlength="4" auto-validate error-message="{{errorMessage}} password" required></paper-input>
+                <paper-input type="password" name="password" placeholder="Password" minlength="4" auto-validate error-message="{{errorMessage}} password" required></paper-input>
                 <div class="errmsg">
                 <small>{{errorMsg}}</small>
                 </div>
@@ -97,7 +97,7 @@ class AdminLogin extends PolymerElement {
       
        <h1>{{myname}}</h1>
      </div>
-    
+     <paper-toast id="toast"></paper-toast>
       
       
       `
@@ -126,11 +126,13 @@ class AdminLogin extends PolymerElement {
 
 
 
-
+    // form submit funtion
     submitHandler() {
       
       this.$.formOne.submit();
     };
+
+    // get the form data from irom-form response
     onResponse(e) {
       
       
@@ -147,21 +149,27 @@ class AdminLogin extends PolymerElement {
         this.errorMsg = "Invalid credentials";
 
       }else{
+       
         this.errorMsg="";
 
         console.log(' this.response',  this.response);
         localStorage.setItem('credentials',JSON.stringify(this.response))
 
-        
-
-        this.set('route.path', '/appointment');
-       
+        this.openToast();
         this.$.formOne.reset();
         
-         
+        // settimeout funtion is used to show the toast message
+        setTimeout(()=> {
+          this.set('route.path', '/appointment');
+        }, 1000);
         
       };
       
+    }
+
+    // open the toast message when login sucessfully
+    openToast() {
+      this.$.toast.show({text: 'Sucessfully Login', duration: 3000})
     }
 }
 

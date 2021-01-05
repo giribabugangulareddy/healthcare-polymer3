@@ -6,7 +6,7 @@ import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/iron-form/iron-form.js';
 import '@polymer/paper-input/paper-input.js';
-
+import '@polymer/paper-toast/paper-toast.js';
 import '@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
 import '@polymer/paper-item/paper-item.js';
 import '@polymer/paper-listbox/paper-listbox.js';
@@ -66,7 +66,7 @@ class Appointment extends PolymerElement {
         display: flex;
         flex-direction: row;
         padding: 20px;
-        width: 50%;
+        width: 60%;
         background: #fff;
         margin-top: 30px;
       }
@@ -140,8 +140,18 @@ class Appointment extends PolymerElement {
     margin-bottom: 5px;
 
     }
+    .custom {
+      width: 450px;
 
+    }
+    paper-item:hover{
+      background:#cccccc;
+    }
     @media (max-width: 1200px) {
+      .right-box-flex {
+        flex-direction: column;
+      }
+     
 
       .container {
         width: 95%;
@@ -151,6 +161,9 @@ class Appointment extends PolymerElement {
       }
     }
     @media (max-width: 992px) {
+      .right-box-flex {
+        flex-direction: row;
+      }
       .flex-container{
         display: block;
         width: 80%;
@@ -159,6 +172,10 @@ class Appointment extends PolymerElement {
       .flex-message {
         width: 94%;
         padding: 14px;
+      }
+      .custom {
+        width: 100%;
+        
       }
     }
 
@@ -210,7 +227,7 @@ class Appointment extends PolymerElement {
           <paper-input label="Phone Number" name="phone" auto-validate pattern="[0-9]*" maxlength="10" minlength="10" error-message="Enter Phone Number & should be 10 digits" required value=""></paper-input>
 
          <div class="margin-btm">
-         <paper-dropdown-menu label="Select Service" auto-validate required error-message="Please Select Service ">
+         <paper-dropdown-menu label="Select Service" class="custom" auto-validate required error-message="Please Select Service ">
          <paper-listbox slot="dropdown-content" name="Service" id="service" attr-for-selected="value"   class="dropdown-content  custom" horizontalAlign='left'>
            <paper-item value="Gynaecology">Gynaecology</paper-item>
            <paper-item value="Orthopaedics">Orthopaedics</paper-item>
@@ -288,7 +305,7 @@ class Appointment extends PolymerElement {
   <div class="right-box-flex">
     <div class="align-right-box">
       <h2>How are feeling today ?</h2>
-      <p> Get unlimited doctor consultations and more much with pluse admin
+      <p> Get unlimited doctor consultations and more much with pluse admin</p>
   </div>
   <div class="right-img">
       <iron-image class="consult-img" sizing="cover" preload src="../../images/consulting.png"></iron-image>
@@ -315,6 +332,8 @@ class Appointment extends PolymerElement {
 </div>
 </div>
 
+<paper-toast id="toast"></paper-toast>
+
       `
 
   }
@@ -327,10 +346,13 @@ class Appointment extends PolymerElement {
     }
   }
 
+  // form submitting function
   submitHandler() {
     this.$.formOne.submit();
   }
+  // get the data from iron-form
   onResponse(e) {
+    // set values from dropdown
     var serives = this.$.service.selected;
     var doctor = this.$.doctor.selected;
     var date = this.$.availableDate.selected;
@@ -341,7 +363,7 @@ class Appointment extends PolymerElement {
     
     this.response = e.detail.response.form;
     console.log(' this.response', this.response);
-
+//  set values to soucedata object from dropdown field
     this.sourceData = {
       fee : fee,
       time:time,
@@ -353,8 +375,19 @@ class Appointment extends PolymerElement {
     }
     console.log('data', this.sourceData)
     localStorage.setItem('appointmentData',JSON.stringify(this.sourceData));
-    this.set('route.path', '/booking-summary');
+    this.openToast();
+   
+    // settimeout funtion is used to show the toast message
+    setTimeout(()=> {
+      this.set('route.path', '/booking-summary');
+    }, 1000);
+
     this.$.formOne.reset();
+  }
+
+   // open the toast message when submit sucessfully
+   openToast() {
+    this.$.toast.show({text: 'Sucessfully Submitted', duration: 3000})
   }
 }
 
