@@ -1,12 +1,16 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import '@polymer/paper-button/paper-button.js';
-
+import '@polymer/paper-spinner/paper-spinner.js';
 
 class BookingSummary extends PolymerElement {
     static get template() {
       return html`
       <style>
-      
+      paper-spinner{
+        position: fixed;
+        top: calc(50% - 14px);
+        left: calc(50% - 14px);
+      }
       .center-width{
         width:40%;
         margin:0 auto;
@@ -54,7 +58,7 @@ class BookingSummary extends PolymerElement {
         }
     }
       </style>
-      
+      <paper-spinner active="[[waiting]]"></paper-spinner>
       <app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>
       <div class="center-width">
       <div class="bg-clr" >
@@ -95,10 +99,25 @@ class BookingSummary extends PolymerElement {
 
          appointmentData:Array,
          total:Number,
-         bookinFee:Number
+         bookinFee:Number,
+       
+    //   True when waiting for the server to repond.
+     
+    waiting: {
+        type: Boolean,
+        value:true
+        
+      },
       };
 
     };
+
+    timeout(){
+        console.log('resr',this.waiting)
+        setTimeout(()=> {
+            this.waiting =false;
+          }, 1000);
+    }
 
     // get appointment data from localstorage
     _getappointData(){
@@ -117,7 +136,7 @@ class BookingSummary extends PolymerElement {
            console.log(' this.bookinFee',  this.bookinFee, 'this.total', this.total)
        });
 
-       
+       this.timeout();
    
     };
 

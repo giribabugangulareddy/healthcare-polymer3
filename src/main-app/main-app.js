@@ -18,10 +18,11 @@ import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/iron-image/iron-image.js';
 import '@polymer/paper-toast/paper-toast.js';
+import '@polymer/paper-dialog/paper-dialog.js';
 
-import '../home/home.js';
-import'../about/about.js';
-import'../departments/departments.js';
+
+
+
 import'../appointment/appointment';
 import'../admin-login/admin-login';
 
@@ -102,14 +103,16 @@ class MainApp extends PolymerElement {
       white-space: nowrap;
       vertical-align: middle;
     }
-    
+    .confirm-btn{
+      float:right;
+  }
     app-drawer {
       --app-drawer-content-container: {
         background-color: #B0BEC5;
         --app-drawer-content-container_-_background-color:#fff;
       }
     }
-
+    
     .drawer-contents {
       height: 100%;
       overflow-y: auto;
@@ -135,6 +138,9 @@ class MainApp extends PolymerElement {
 
     /* small screen */
     @media (max-width: 992px) {
+      paper-icon-item a: hover{
+        background:#ccc;
+      }
       app-drawer{
      
         position: absolute;
@@ -166,10 +172,18 @@ class MainApp extends PolymerElement {
       position: absolute;
       z-index: -1;
     }
-  </style>
 
+    /* small screen */
+    @media (max-width: 992px) {
+      .res-font{
+        font-size:19px;
+      }
+    }
+  </style>
+  <!-- app-location is used get rootpath --!>
   <app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>
 
+  <!-- app-route is used route --!>
   <app-route  route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
 
 
@@ -204,7 +218,7 @@ class MainApp extends PolymerElement {
          <!-- <span> <a  name="login" href="[[rootPath]]login">Admin Login</a></span> --!>
 
          <template is="dom-if" if="{{loginData}}">
-         <span> <a  on-click="clearStorege"> Logout</a></span>
+         <span> <a  on-click="openModal"> Logout</a></span>
          </template>
          <template is="dom-if" if="{{!loginData}}">
           <button class="btn"> <a name="appointment" href="[[rootPath]]login">Appointment</a></button>
@@ -218,7 +232,21 @@ class MainApp extends PolymerElement {
    
   </app-header-layout>
 
+
+  <!-- toast message UI-->
   <paper-toast id="toast"></paper-toast>
+
+
+  <!-- logout confirm popup modal -->
+<paper-dialog modal backdrdop id="dialog">
+    <h2 class="res-font">Do you want Logout ?</h2>    
+    <div id="dialog-buttons">
+      <paper-button dialog-dismiss on-tap="_modalCancelled">Cancel</paper-button>
+      <paper-button dialog-confirm autofocus class="confirm-btn" on-tap="_modalconfirmed">Yes</paper-button>
+    </div>
+</paper-dialog> 
+
+
   <!-- app-drawer --!>
   
   <app-drawer opened="{{drawerOpened}}" swipe-open="" tabindex="0">
@@ -255,7 +283,7 @@ class MainApp extends PolymerElement {
   <app-toolbar>
   <template is="dom-if" if="{{loginData}}" >
   <paper-icon-item on-click="_toggleDrawer">
-  <paper-item on-click="clearStorege">Logout</paper-item>
+  <paper-item  on-click="openModal">Logout</paper-item>
   </template>
   </app-toolbar>
 
@@ -283,8 +311,10 @@ class MainApp extends PolymerElement {
 
 
     `;
-  }
+  };
 
+  
+  
   static get properties() {
     return{
         page:{
@@ -304,11 +334,14 @@ class MainApp extends PolymerElement {
     }
 };
 
+// if any values changeed observer  is called and it is  callback function
 static get observers(){
     console.log("test observer");
   return ['_routerChanged(routeData.page)'];
-}
+};
 
+
+// when we routechanged that route is check the available or not
 _routerChanged(page){
     console.log('page', page)
     if (!page) {
@@ -320,10 +353,12 @@ _routerChanged(page){
         console.log(' this.data',JSON.parse( this.loginData));
     } 
 
-}
+};
 
+
+// page changed navigation import component
 _pageChanged(page){
-    console.log('currentPage, oldPage',page)
+    console.log('page',page)
     switch(page){
 
      
@@ -351,11 +386,13 @@ _pageChanged(page){
     }
 };
 
+// when we view mobile screen drawer open   and close
   _toggleDrawer() {
     console.log( ' this.drawerOpened',this.drawerOpened)
     this.drawerOpened = !this.drawerOpened;
   };
 
+  // clear the local storage data
   clearStorege(){
     this. openToast();
     console.log('fasfasd')
@@ -363,10 +400,24 @@ _pageChanged(page){
     this.set('route.path', '/home');
   };
 
+  // toast messages funtion
   openToast() {
     this.$.toast.show({text: 'Sucessfully Logout', duration: 3000})
   };
-}
+
+  // when we logout open the confirm modal 
+  openModal() {
+    this.$.dialog.open();
+  };
+
+  // when we confirm the logout funtion
+ _modalconfirmed(){
+   this. clearStorege();
+   console.log('Confirmed', this.loginData);
+   this.loginData = !this.loginData;
+   
+ };
+};
 
 
 window.customElements.define('main-app', MainApp);

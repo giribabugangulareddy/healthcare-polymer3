@@ -85,23 +85,23 @@ class Departments extends PolymerElement {
     </div>
     <div class="square">
     <iron-image class="image"  preload src="../../images/depart2.jpg"></iron-image>
-    <p class="caption">Detail Care</p>
+    <p class="caption">Eye Care</p>
     </div>
     <div class="square">
     <iron-image class="image"  preload src="../../images/depart3.jpg"></iron-image>
-    <p class="caption">Detail Care</p>
+    <p class="caption">Cardiology </p>
     </div>
     <div class="square">
     <iron-image class="image"  preload src="../../images/depart4.jpg"></iron-image>
-    <p class="caption">Detail Care</p>
+    <p class="caption">Orthopaedics </p>
     </div>
     <div class="square">
     <iron-image class="image"  preload src="../../images/depart5.jpg"></iron-image>
-    <p class="caption">Detail Care</p>
+    <p class="caption">Gynaecology </p>
     </div>
     <div class="square">
     <iron-image class="image"  preload src="../../images/depart6.jpg"></iron-image>
-    <p class="caption">Detail Care</p>
+    <p class="caption">Gastroenterology </p>
     </div>
   </div>
   </div>

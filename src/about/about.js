@@ -2,14 +2,19 @@ import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/iron-image/iron-image.js';
-
+import '@polymer/paper-spinner/paper-spinner.js';
+import '@polymer/paper-dialog/paper-dialog.js';
 
 
 class About extends PolymerElement {
     static get template() {
       return html`
       <style>
-
+      paper-spinner{
+        position: fixed;
+        top: calc(50% - 14px);
+        left: calc(50% - 14px);
+      }
     .middle-align {
       font-weight: 400 !important;
       margin: 10px;
@@ -83,9 +88,12 @@ class About extends PolymerElement {
           }
       }
       
+      .confirm-btn{
+          float:right;
+      }
 
       </style>
-      
+
       <!-- staring of hospital info cards -->
 <div class="center-box">
 
@@ -216,6 +224,9 @@ class About extends PolymerElement {
     </table>
     </div>
 </div>
+
+<paper-spinner active></paper-spinner>
+
       `
      
     }
@@ -226,6 +237,7 @@ class About extends PolymerElement {
       }
 
     }
+  
 }
 
 
