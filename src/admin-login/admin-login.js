@@ -3,7 +3,7 @@ import '@polymer/paper-toast/paper-toast.js';
 import '@polymer/iron-input/iron-input.js';
 import '@polymer/paper-button/paper-button.js';
 import '@polymer/iron-form/iron-form.js';
-
+import '@polymer/paper-checkbox/paper-checkbox.js';
 
 
 
@@ -51,6 +51,9 @@ class AdminLogin extends PolymerElement {
       margin: 4px;
     }
 
+    paper-checkbox{
+      margin-top:15px;
+    }
     
     @media (max-width: 1200px) {
 
@@ -84,6 +87,7 @@ class AdminLogin extends PolymerElement {
                 <paper-input name="email" placeholder="Email"  auto-validate pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  error-message="{{errorMessage}} email" required ></paper-input>
 
                 <paper-input type="password" name="password" placeholder="Password" minlength="4" auto-validate error-message="{{errorMessage}} password" required></paper-input>
+                <paper-checkbox name="admin" value=checked>If your an admin</paper-checkbox>
                 <div class="errmsg">
                 <small>{{errorMsg}}</small>
                 </div>
@@ -158,10 +162,21 @@ class AdminLogin extends PolymerElement {
         this.openToast();
         this.$.formOne.reset();
         
+
+        // separate route based on admin checkbox
+        
+        if(!this.response.admin){
         // settimeout funtion is used to show the toast message
         setTimeout(()=> {
           this.set('route.path', '/appointment');
         }, 1000);
+
+        }else{
+
+          setTimeout(()=> {
+            this.set('route.path', '/dashboard');
+          }, 1000);
+        }
         
       };
       

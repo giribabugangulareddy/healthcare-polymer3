@@ -16,7 +16,6 @@ import '@polymer/app-route/app-route.js';
 import '@polymer/iron-pages/iron-pages.js';
 import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-icons/iron-icons.js';
-import '@polymer/iron-image/iron-image.js';
 import '@polymer/paper-toast/paper-toast.js';
 import '@polymer/paper-dialog/paper-dialog.js';
 
@@ -239,7 +238,7 @@ class MainApp extends PolymerElement {
 
   <!-- logout confirm popup modal -->
 <paper-dialog modal backdrdop id="dialog">
-    <h2 class="res-font">Do you want Logout ?</h2>    
+    <h2 class="res-font">Are you sure want to Logout ?</h2>    
     <div id="dialog-buttons">
       <paper-button dialog-dismiss on-tap="_modalCancelled">Cancel</paper-button>
       <paper-button dialog-confirm autofocus class="confirm-btn" on-tap="_modalconfirmed">Yes</paper-button>
@@ -307,7 +306,8 @@ class MainApp extends PolymerElement {
 <admin-login  name="login" ></admin-login>
 <departments-comp name="department"></departments-comp>
 <booking-summary-comp name="booking-summary"></booking-summary-comp>
-
+<dashboaed-comp name="dashboard"></dashboaed-comp>
+</iron-pages>
 
 
     `;
@@ -346,7 +346,7 @@ _routerChanged(page){
     console.log('page', page)
     if (!page) {
       this.page = 'home';
-    } else if (['home', 'about', 'login', 'appointment','department','booking-summary'].indexOf(page) !== -1) {
+    } else if (['home', 'about', 'login', 'appointment','department','booking-summary','dashboard'].indexOf(page) !== -1) {
       this.page = page;
 
       this.loginData = localStorage.getItem('credentials');
@@ -375,6 +375,9 @@ _pageChanged(page){
         case 'appointment':
             import('../appointment/appointment');
              break;
+        case 'dashboard':
+            import('../dashboard/dashboard.js');
+             break;
         case 'login' : 
             import('../admin-login/admin-login');
             break;
@@ -397,6 +400,7 @@ _pageChanged(page){
     this. openToast();
     console.log('fasfasd')
     localStorage.clear();
+    this.loginData = !this.loginData;
     this.set('route.path', '/home');
   };
 
@@ -414,7 +418,6 @@ _pageChanged(page){
  _modalconfirmed(){
    this. clearStorege();
    console.log('Confirmed', this.loginData);
-   this.loginData = !this.loginData;
    
  };
 };

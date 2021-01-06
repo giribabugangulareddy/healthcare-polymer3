@@ -6,7 +6,7 @@ import '@polymer/paper-spinner/paper-spinner.js';
 import '@polymer/paper-dialog/paper-dialog.js';
 
 
-class About extends PolymerElement {
+class Dashboard extends PolymerElement {
     static get template() {
       return html`
       <style>
@@ -241,4 +241,4 @@ class About extends PolymerElement {
 }
 
 
-window.customElements.define('about-comp', About);
+window.customElements.define('dashboaed-comp', Dashboard);
