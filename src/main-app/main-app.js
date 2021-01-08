@@ -307,6 +307,7 @@ class MainApp extends PolymerElement {
 <departments-comp name="department"></departments-comp>
 <booking-summary-comp name="booking-summary"></booking-summary-comp>
 <dashboaed-comp name="dashboard"></dashboaed-comp>
+<payment-comp name="payment"></payment-comp>
 </iron-pages>
 
 
@@ -341,53 +342,72 @@ static get observers(){
 };
 
 
-// when we routechanged that route is check the available or not
+
 _routerChanged(page){
+
+      // Show the corresponding page according to the route.
+     // 
+     // If no page was found in the route data, page will be an empty string.
+     // Show 'home' in that case.
+
+
     console.log('page', page)
+    this.loginData = localStorage.getItem('credentials');
     if (!page) {
       this.page = 'home';
-    } else if (['home', 'about', 'login', 'appointment','department','booking-summary','dashboard'].indexOf(page) !== -1) {
+    } else if (['home', 'about', 'login', 'appointment','department','booking-summary','dashboard','payment'].indexOf(page) !== -1) {
       this.page = page;
 
-      this.loginData = localStorage.getItem('credentials');
-        console.log(' this.data',JSON.parse( this.loginData));
-    } 
+      
+       
+    } else{
+      this.page = 'invalid-page';
+    }
 
 };
 
 
-// page changed navigation import component
+
 _pageChanged(page){
+
+   // Import the page component on demand.
+    //
+    // Note: `polymer build` doesn't like string concatenation in the import
+    // statement, so break it up.
+
     console.log('page',page)
     switch(page){
 
      
         case 'home' : 
-            import('../home/home');
-
+            import('../home/home.js');
             break;
         case 'about':
-            import('../about/about');
+            import('../about/about.js');
             break;
         case 'department':
-            import('../departments/departments');
+            import('../departments/departments.js');
              break;
         case 'appointment':
-            import('../appointment/appointment');
+            import('../appointment/appointment.js');
              break;
         case 'dashboard':
             import('../dashboard/dashboard.js');
              break;
         case 'login' : 
-            import('../admin-login/admin-login');
+            import('../admin-login/admin-login.js');
             break;
         case 'booking-summary' : 
-            import('../booking-summary/booking-summary');
+            import('../booking-summary/booking-summary.js');
             break;
+        case 'payment' : 
+            import('../payment/payment.js');
+            break;
+       
         default : this.page='home';
         
     }
-};
+}; 
 
 // when we view mobile screen drawer open   and close
   _toggleDrawer() {
@@ -404,18 +424,22 @@ _pageChanged(page){
     this.set('route.path', '/home');
   };
 
-  // toast messages funtion
+  
   openToast() {
-    this.$.toast.show({text: 'Sucessfully Logout', duration: 3000})
+    // toast messages funtion
+    this.$.toast.show({text: 'Successfully Logout', duration: 3000})
   };
 
-  // when we logout open the confirm modal 
+  
   openModal() {
+    // when we logout open the confirm modal 
+
     this.$.dialog.open();
   };
 
-  // when we confirm the logout funtion
+  
  _modalconfirmed(){
+   // when we confirm the logout funtion
    this. clearStorege();
    console.log('Confirmed', this.loginData);
    

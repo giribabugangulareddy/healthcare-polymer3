@@ -11,12 +11,17 @@ import '@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
 import '@polymer/paper-item/paper-item.js';
 import '@polymer/paper-listbox/paper-listbox.js';
 import '@polymer/paper-button/paper-button.js';
-import '@polymer/iron-selector/iron-selector.js';
+import '@polymer/paper-spinner/paper-spinner.js';
 
 class Appointment extends PolymerElement {
   static get template() {
     return html`
       <style>
+      paper-spinner{
+        position: fixed;
+        top: calc(50% - 14px);
+        left: calc(50% - 14px);
+      }
       .banner-img {
         width: 100%;
         height: 200px;
@@ -147,6 +152,10 @@ class Appointment extends PolymerElement {
     paper-item:hover{
       background:#cccccc;
     }
+
+    #spennerOpacity{
+      opacity:1;
+    }
     @media (max-width: 1200px) {
       .right-box-flex {
         flex-direction: column;
@@ -204,9 +213,9 @@ class Appointment extends PolymerElement {
     font-size: 22px;
   }
       </style>
-
+      <paper-spinner active="[[waiting]]"></paper-spinner>
 <app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>   
-<div class="bg-color">
+<div class="bg-color" id="spennerOpacity">
 
 <div>
     <iron-image class="banner-img" sizing="cover" preload src="../../images/doctor4.png"></iron-image>
@@ -342,9 +351,15 @@ class Appointment extends PolymerElement {
         
       sourceData:{
         type:Object
-      }
+      },
+      waiting: {
+        type: Boolean,
+        value:false
+        
+      },
     }
   }
+
 
   // form submitting function
   submitHandler() {
@@ -376,18 +391,26 @@ class Appointment extends PolymerElement {
     console.log('data', this.sourceData)
     localStorage.setItem('appointmentData',JSON.stringify(this.sourceData));
     this.openToast();
-   
+
+    // waiting is true the spinner
+    this.waiting =true;
+
+    // applay the css style for opcacity id
+    this.$.spennerOpacity.style.opacity = '0.3'
+
+
     // settimeout funtion is used to show the toast message
     setTimeout(()=> {
+      
       this.set('route.path', '/booking-summary');
     }, 1000);
-
+    
     this.$.formOne.reset();
   }
 
-   // open the toast message when submit sucessfully
+   // open the toast message when submit Successfully
    openToast() {
-    this.$.toast.show({text: 'Sucessfully Submitted', duration: 3000})
+    this.$.toast.show({text: 'Successfully Submitted', duration: 3000})
   }
 }
 

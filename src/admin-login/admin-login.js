@@ -80,13 +80,13 @@ class AdminLogin extends PolymerElement {
      <div class="bg-color">
         <div class="center-box">
         <div class="login-frem">
-        <h1>User Login </h1>
+        <h1>Login </h1>
           <iron-form id="formOne" on-iron-form-response="onResponse">
               <form method="post" action="https://httpbin.org/post" is="iron-form">
               
-                <paper-input name="email" placeholder="Email"  auto-validate pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  error-message="{{errorMessage}} email" required ></paper-input>
+                <paper-input name="email" placeholder="Email"  auto-validate pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  error-message="Please enter email" required ></paper-input>
 
-                <paper-input type="password" name="password" placeholder="Password" minlength="4" auto-validate error-message="{{errorMessage}} password" required></paper-input>
+                <paper-input type="password" name="password" placeholder="Password" minlength="4" auto-validate error-message="Please enter password" required></paper-input>
                 <paper-checkbox name="admin" value=checked>If your an admin</paper-checkbox>
                 <div class="errmsg">
                 <small>{{errorMsg}}</small>
@@ -99,7 +99,7 @@ class AdminLogin extends PolymerElement {
         </div>
         </div>
       
-       <h1>{{myname}}</h1>
+
      </div>
      <paper-toast id="toast"></paper-toast>
       
@@ -112,19 +112,9 @@ class AdminLogin extends PolymerElement {
           
         response: {
               type: String,
-             observer:'validators'
           },
-          errorMessage:{
-            type: String,
-            value:"required",
-            notify: true,
-          },
+         
 
-          myname:{
-            type:String,
-            notify:true,
-            
-          }
       };
     };
 
@@ -153,7 +143,7 @@ class AdminLogin extends PolymerElement {
         this.errorMsg = "Invalid credentials";
 
       }else{
-       
+      //  if valid error 
         this.errorMsg="";
 
         console.log(' this.response',  this.response);
@@ -182,9 +172,9 @@ class AdminLogin extends PolymerElement {
       
     }
 
-    // open the toast message when login sucessfully
+    // open the toast message when login Successfully
     openToast() {
-      this.$.toast.show({text: 'Sucessfully Login', duration: 3000})
+      this.$.toast.show({text: 'Successfully Login', duration: 3000})
     }
 }
 

@@ -7,20 +7,12 @@ class Departments extends PolymerElement {
     return html`
     <style>
     
-    
-    .square {
-      width: initial;
-      height: 340px;
-      margin: 10px;
-      display: inline-block;
-    }
-    
     .card-view {
-      display: block;
-      margin: 0 auto;
+      display: flex;
+      justify-content: center;
       flex-wrap: wrap;
       flex-direction: row;
-      display: flex;
+     
     }
     .image{
       width: 380px;
@@ -33,6 +25,12 @@ class Departments extends PolymerElement {
       font-family: sans-serif;
       margin: 10px;
     }
+    .square {
+      width: initial;
+      height: 340px;
+      margin: 10px;
+      display: inline-block;
+    }
     .text-center{
       text-align: center;
       padding: 30px;
@@ -42,36 +40,17 @@ class Departments extends PolymerElement {
     .bg-color{
       background: #cccccc1a;
     }
-    @media screen and (min-width: 1240px) {
-      .card-view {
-        width: 1240px;
+    @media screen and (max-width:480px){
+      .text-center{
+        font-size: 24px;
       }
-    }
-    
-    @media screen and (min-width: 930px) and (max-width: 1239px) {
-      .card-view {
-        width: 820px;
-
+      .image{
+        width: 300px;
       }
-    }
-    
-    @media screen and (min-width: 620px) and (max-width: 929px) {
       .card-view {
-        width: 410px;
+        text-align:center;
+        display: block;
       }
-    }
-    
-    @media screen and (min-width: 310px)  and (max-width: 619px) {
-      .card-view {
-        width: 410px;
-      }
-      
-
-    }
-    @media (max-width: 320px) {
-      .image {
-        width: 295px;
-    }
     }
     </style>
     <div class="bg-color">
@@ -109,18 +88,7 @@ class Departments extends PolymerElement {
     `
    
   }
-  static get properties() {
-    return {
-      myname:{
-        type:String,
-        value:"Giribabu",
-        notify:true,
-        
-      }
-     
-    }
 
-  }
 }
 
 

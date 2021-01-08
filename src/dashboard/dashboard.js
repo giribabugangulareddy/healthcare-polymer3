@@ -6,6 +6,8 @@ import '@polymer/paper-spinner/paper-spinner.js';
 import '@polymer/paper-dialog/paper-dialog.js';
 
 
+
+
 class Dashboard extends PolymerElement {
     static get template() {
       return html`
@@ -27,6 +29,14 @@ class Dashboard extends PolymerElement {
     }
     .pad-table{
       padding:20px;
+    }
+    .pad-table p{
+        border: 1px solid #ccc;
+        margin: 0;
+        border-bottom: none;
+        padding: 15px 15px 45px;
+        font-size: 20px;
+        font-family: 'Roboto';
     }
    .center-box{
      width:80%;
@@ -62,17 +72,27 @@ class Dashboard extends PolymerElement {
         font-size: 30px;
        
       }
-
+      .bg-color{
+        background: #cccccc1a;
+      }
+      .head-tr,.head-tr:hover{
+        background: #396cf0;
+        color: #fff;
+      }
       table {
         font-family: arial, sans-serif;
         border-collapse: collapse;
         width: 100%;
+        border: 1px solid #ccc;
+        border-top: none;
       }
-      
+      tr:hover {
+        background-color: #ffff99;
+  }
       td, th {
-        border: 1px solid #dddddd;
+        border-bottom: 1px solid #dddddd;
         text-align: left;
-        padding: 8px;
+        padding: 14px;
       }
       /* responsive code of hospital cards */
       @media screen and (max-width:1200px){
@@ -81,13 +101,33 @@ class Dashboard extends PolymerElement {
           }
          
       }
-      
+      @media screen and (max-width:767px){
+        .center-box{
+            width:100%;
+        }
+        td, th{
+            padding: 8px;
+            font-size: 14px;
+        }
+        .pad-table p{
+            padding: 15px 15px 37px;
+            font-size: 18px;
+        }
+      }
       @media screen and (max-width:600px){
           .box{
               width: 70%;
           }
       }
-      
+      @media screen and (max-width:480px){
+        .pad-table{
+            padding: 5px;
+        }
+        td, th {
+            padding: 5px;
+            font-size: 11px;
+        }
+      }
       .confirm-btn{
           float:right;
       }
@@ -95,6 +135,7 @@ class Dashboard extends PolymerElement {
       </style>
 
       <!-- staring of hospital info cards -->
+<div class="bg-color">
 <div class="center-box">
 
 <div>
@@ -162,67 +203,48 @@ class Dashboard extends PolymerElement {
 </div>
 </div>
 
-
-      <div class="pad-table">
+        <iron-ajax 
+          auto 
+          url="../../data/tableData.json" 
+          handle-as="json" 
+          last-response="{{response}}">
+        </iron-ajax>
+<div class="pad-table">
+      <p>Recent appointments</p>
       <table>
-          <tr>
-          <th>No</th>
-          <th>Patient</th>
-          <th>Doctor</th>
-          <th>Date</th>
-          <th>Time</th>
-          <th>Contact</th>
-          </tr>
-          <tr>
-          <td>1</td>
-          <td>Madhu</td>
-          <td>Dr. Zinia Zara</td>
-          <td>January 10, 2021</td>
-          <td>10:00 AM</td>
-          <td>9898457654</td>
-          </tr>
-          <tr>
-          <td>2</td>
-          <td>Kumar</td>
-          <td>Dr. Nadim Kamal</td>
-          <td>January 11, 2021</td>
-          <td>11:00 AM</td>
-          <td>9898458551</td>
-          </tr>
-          <tr>
-          <td>3</td>
-          <td>Shakar</td>
-          <td>Dr. Rihana Roy</td>
-          <td>January 12, 2021</td>
-          <td>12:00 PM</td>
-          <td>8984576234</td>
-          </tr>
-          <tr>
-          <td>4</td>
-          <td>Rahul</td>
-          <td>Dr. Steven Roy</td>
-          <td>January 13, 2021</td>
-          <td>01:00 PM</td>
-          <td>7698457652</td>
-          </tr>
-          <tr>
-          <td>5</td>
-          <td>Sankar</td>
-          <td>Dr. Zinia Zara</td>
-          <td>January 14, 2021</td>
-          <td>02:00 PM</td>
-          <td>8898457651</td>
-          </tr>
-          <tr>
-          <td>6</td>
-          <td>Rajesh</td>
-          <td>Dr. Zinia Zara</td>
-          <td>January 15, 2021</td>
-          <td>03:00 PM</td>
-          <td>9898457654</td>
-          </tr>
+    
+        <thead>
+        <tr class="head-tr">
+      <th>No</th>
+      <th>Patient</th>
+      <th>Doctor</th>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Contact</th>
+      </tr>
+        </thead>
+          
+            <tbody>
+            <template is="dom-repeat" items="{{response.sourceData}}">
+           
+            <tr>
+                <td>[[item.id]]</td>
+                <td>[[item.Patient]]</td>
+                <td>[[item.Doctor]]</td>
+                <td>[[item.Date]]</td>
+                <td>[[item.Time]]</td>
+                <td>[[item.Contact]]</td>
+                </tr>
+          
+            </template>
+            </tbody>
+            
+         
     </table>
+    
     </div>
+      
+</div>
 </div>
 
 
@@ -230,15 +252,8 @@ class Dashboard extends PolymerElement {
       `
      
     }
-    static get properties() {
-      return {
-        
-       
-      }
 
-    }
   
 }
-
 
 window.customElements.define('dashboaed-comp', Dashboard);

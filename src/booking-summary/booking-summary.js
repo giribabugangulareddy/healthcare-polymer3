@@ -33,6 +33,9 @@ class BookingSummary extends PolymerElement {
       text-transform: inherit;
       margin-top: 1em;
     }
+    #spennerOpacity{
+      opacity:1;
+    }
     @media (max-width: 1200px) {
 
         .center-width {
@@ -60,31 +63,33 @@ class BookingSummary extends PolymerElement {
       </style>
       <paper-spinner active="[[waiting]]"></paper-spinner>
       <app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>
-      <div class="center-width">
-      <div class="bg-clr" >
-                <h2 class="text-center pad-15">Booking Summary</h2>
+     <div id="spennerOpacity">
+     <div class="center-width">
+     <div class="bg-clr" >
+               <h2 class="text-center pad-15">Booking Summary</h2>
 
-                <div >
-                    <div class="col-sm-12 bg-clr">
-                    <dom-repeat items="{{appointmentData}}">
-                    <template>
-                        <p><span>Doctor Name</span> <span class="pull-right">{{item.doctor}}</span></p>
-                        <p><span>Patient Name</span> <span class="pull-right">{{item.username}}</span></p>
-                        <p><span>Service </span> <span class="pull-right">{{item.serviceData}}</span></p>
-                        <p><span>Booking Date</span> <span class="pull-right">{{item.date}}</span></p>
-                        <p><span>Booking Time</span> <span class="pull-right">{{item.time}}</span></p>
-                        <p><span>Consulting fee </span> <span class="pull-right"> ₹{{item.fee}} /-</span></p>
-                        <p><span>Booking fee(10%) </span> <span class="pull-right">₹{{bookinFee}} /-</span></p>
-                        <hr>
-                        <p><span>Total fee</span> <span class="pull-right">Rs {{total}} /-</span></p>
-                    </template>
-                    </dom-repeat>
-                        <paper-button  raised class="indigo" on-click="payment">Make Payment</paper-button>
-                    </div>
-                </div>
-            </div>
-      </div>
+               <div >
+                   <div class="col-sm-12 bg-clr">
+                   <dom-repeat items="{{appointmentData}}">
+                   <template>
+                       <p><span>Doctor Name</span> <span class="pull-right">{{item.doctor}}</span></p>
+                       <p><span>Patient Name</span> <span class="pull-right">{{item.username}}</span></p>
+                       <p><span>Service </span> <span class="pull-right">{{item.serviceData}}</span></p>
+                       <p><span>Booking Date</span> <span class="pull-right">{{item.date}}</span></p>
+                       <p><span>Booking Time</span> <span class="pull-right">{{item.time}}</span></p>
+                       <p><span>Consulting fee </span> <span class="pull-right"> ₹{{item.fee}} /-</span></p>
+                       <p><span>Booking fee(10%) </span> <span class="pull-right">₹{{bookinFee}} /-</span></p>
+                       <hr>
+                       <p><span>Total fee</span> <span class="pull-right">Rs {{total}} /-</span></p>
+                   </template>
+                   </dom-repeat>
+                       <paper-button  raised class="indigo" on-click="payment">Make Payment</paper-button>
+                   </div>
+               </div>
+           </div>
+     </div>
 
+     </div>
 
 
       `
@@ -105,19 +110,14 @@ class BookingSummary extends PolymerElement {
      
     waiting: {
         type: Boolean,
-        value:true
+        value:false
         
       },
       };
 
     };
 
-    timeout(){
-        console.log('resr',this.waiting)
-        setTimeout(()=> {
-            this.waiting =false;
-          }, 1000);
-    }
+
 
     // get appointment data from localstorage
     _getappointData(){
@@ -136,14 +136,23 @@ class BookingSummary extends PolymerElement {
            console.log(' this.bookinFee',  this.bookinFee, 'this.total', this.total)
        });
 
-       this.timeout();
+       
    
     };
 
     // redirect url to home
     payment(){
+      // wating true is  add spenner 
+      this.waiting =true;
+
+      // spnner opacity added
+      this.$.spennerOpacity.style.opacity = '0.3'
+      
+      setTimeout(()=> {
         
-        this.set('route.path', '/home');
+        this.set('route.path', '/payment');
+      }, 1000);
+        
     };
 }
 

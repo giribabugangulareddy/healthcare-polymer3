@@ -7,18 +7,17 @@ class Home extends PolymerElement {
   static get template() {
     return html`
       <style>
-     img {
-        width: 100%;
-        background-color: lightgray;
-      }
+     
      
       .img-fluid{
-        object-fit: contain;
+        width: 100%;
+        background-color: lightgray;
+         object-fit: contain;
     }
 
     @media screen and (max-width:320px){
       .img-fluid{
-        width: 308px;
+        width: 319px;
         height: 150px;
         object-fit: cover;
       }
@@ -27,10 +26,9 @@ class Home extends PolymerElement {
      
       <div >
 <img sizing="cover" class="img-fluid" preload src="../../images/doctor.jpg" />
-</div>
-<departments-comp myname="[[myname]]"></departments-comp>
-<h1>{{myname}}</h1>
 
+<departments-comp></departments-comp>
+</div>
       `
 
   }
