@@ -1,3 +1,11 @@
+/**Import the Polymer library and html helper function
+* Import the Polymer iron-icons
+* Import the Polymer paper-dialog
+* Import the Polymer iron-image
+* Import the Polymer paper-spinner
+**/
+
+
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-icons/iron-icons.js';
@@ -9,8 +17,10 @@ import '@polymer/paper-dialog/paper-dialog.js';
 
 
 class Dashboard extends PolymerElement {
+    
     static get template() {
       return html`
+
       <style>
       paper-spinner{
         position: fixed;
@@ -134,23 +144,28 @@ class Dashboard extends PolymerElement {
 
       </style>
 
-      <!-- staring of hospital info cards -->
+
+
+<!-- staring of hospital info cards -->
 <div class="bg-color">
 <div class="center-box">
-
 <div>
 <div class="container-box">
+
     <!-- Doctors -->
+
     <div class="box">
         <div class="card">
             <div >
             <iron-icon icon="icons:account-circle"></iron-icon>
                 <h5 class="middle-align">Doctors</h5>
-                <h5 class="middle-align">3,973</h5>
+                <h5 class="middle-align">2,234</h5>
             </div>
         </div>
     </div>
+
     <!-- Patients -->
+
     <div class="box">
         <div class="card">
             <div >
@@ -160,100 +175,113 @@ class Dashboard extends PolymerElement {
             </div>
         </div>
     </div>
+
     <!-- Nurses -->
+
     <div class="box">
         <div class="card">
             <div >
             <iron-icon icon="icons:supervisor-account"></iron-icon>
                 <h5 class="middle-align">Nurses</h5>
-                <h5 class="middle-align">3,973</h5>
+                <h5 class="middle-align">4,123</h5>
             </div>
         </div>
     </div>
+
     <!-- Pharmacist -->
+
     <div class="box">
         <div class="card">
             <div >
             <iron-icon icon="icons:work"></iron-icon>
                 <h5 class="middle-align">Pharmacist</h5>
-                <h5 class="middle-align">3,973</h5>
+                <h5 class="middle-align">2,973</h5>
             </div>
         </div>
     </div>
+
     <!-- New events -->
+
     <div class="box">
         <div class="card">
             <div >
             <iron-icon icon="icons:event"></iron-icon>
                 <h5 class="middle-align">New events</h5>
-                <h5 class="middle-align">3,973</h5>
+                <h5 class="middle-align">1,973</h5>
             </div>
         </div>
     </div>
+
     <!-- Reports -->
+
     <div class="box">
         <div class="card">
             <div >
             <iron-icon icon="icons:assignment"></iron-icon>
                 <h5 class="middle-align">Reports</h5>
-                <h5 class="middle-align">3,973</h5>
+                <h5 class="middle-align">5,973</h5>
             </div>
         </div>
     </div>
 </div>
 </div>
 
-        <iron-ajax 
-          auto 
-          url="../../data/tableData.json" 
-          handle-as="json" 
-          last-response="{{response}}">
-        </iron-ajax>
+
+
+<!-- iron-ajax is used to call the tabledata url and get the tabel data from tabledata.json file in local-->
+<iron-ajax 
+    auto 
+    url="../../data/tableData.json" 
+    handle-as="json" 
+    last-response="{{response}}">
+</iron-ajax>
+
+
+<!-- showing data from iron-ajax api response -->
 <div class="pad-table">
-      <p>Recent appointments</p>
+    <p>Recent appointments</p>
       <table>
-    
         <thead>
-        <tr class="head-tr">
-      <th>No</th>
-      <th>Patient</th>
-      <th>Doctor</th>
-      <th>Date</th>
-      <th>Time</th>
-      <th>Contact</th>
-      </tr>
+            <tr class="head-tr">
+                <th>No</th>
+                <th>Patient</th>
+                <th>Doctor</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Contact</th>
+            </tr>
         </thead>
           
-            <tbody>
+        <tbody>
+
+            <!-- dom-repate used to iterate an array values from iron-jax respose -->
+
             <template is="dom-repeat" items="{{response.sourceData}}">
-           
-            <tr>
-                <td>[[item.id]]</td>
-                <td>[[item.Patient]]</td>
-                <td>[[item.Doctor]]</td>
-                <td>[[item.Date]]</td>
-                <td>[[item.Time]]</td>
-                <td>[[item.Contact]]</td>
+                <tr>
+                    <td>[[item.id]]</td>
+                    <td>[[item.Patient]]</td>
+                    <td>[[item.Doctor]]</td>
+                    <td>[[item.Date]]</td>
+                    <td>[[item.Time]]</td>
+                    <td>[[item.Contact]]</td>
                 </tr>
-          
             </template>
-            </tbody>
-            
-         
+        </tbody>
     </table>
     
-    </div>
+</div>
       
 </div>
 </div>
 
 
 
-      `
+      `;
      
     }
 
   
-}
+};
 
+//registering into the webbrowser using cusomelement
 window.customElements.define('dashboaed-comp', Dashboard);

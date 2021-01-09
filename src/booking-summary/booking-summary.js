@@ -1,28 +1,22 @@
+/**Import the Polymer library and html helper function
+* Import the Polymer paper-button
+* Import the Polymer paper-spinner
+*/
+
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import '@polymer/paper-button/paper-button.js';
 import '@polymer/paper-spinner/paper-spinner.js';
-
+import '../styles/shared-styles.js';
 class BookingSummary extends PolymerElement {
     static get template() {
       return html`
-      <style>
+      <style include="shared-styles">
       paper-spinner{
         position: fixed;
         top: calc(50% - 14px);
         left: calc(50% - 14px);
       }
-      .center-width{
-        width:40%;
-        margin:0 auto;
-      }
-     .pull-right{
-       float:right
-     }
-     .bg-clr{
-      background: #f1f7fa;
-      padding: 2em;
-      font-family: 'Roboto';
-     }
+ 
      .text-center{
        text-align:center;
      }
@@ -36,39 +30,23 @@ class BookingSummary extends PolymerElement {
     #spennerOpacity{
       opacity:1;
     }
-    @media (max-width: 1200px) {
+   
 
-        .center-width {
-            width: 50%;
-        }
-    }
-    @media (max-width: 992px) {
-        .center-width {
-            width: 60%;
-        }
-    }
-    @media (max-width: 767px) {
-        .center-width {
-            width: 80%;
-        }
-    }
-    @media (max-width: 600px) {
-        .bg-clr{
-            padding: 10px;
-        }
-        .center-width {
-            width: 100%;
-        }
-    }
       </style>
-      <paper-spinner active="[[waiting]]"></paper-spinner>
-      <app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>
-     <div id="spennerOpacity">
-     <div class="center-width">
+
+
+
+
+<paper-spinner active="[[waiting]]"></paper-spinner>
+<app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>
+
+  <div id="spennerOpacity">
+    <div class="center-width">
      <div class="bg-clr" >
                <h2 class="text-center pad-15">Booking Summary</h2>
 
-               <div >
+              <!-- booking summary details with using dom-repate -->
+               <div>
                    <div class="col-sm-12 bg-clr">
                    <dom-repeat items="{{appointmentData}}">
                    <template>
@@ -87,18 +65,22 @@ class BookingSummary extends PolymerElement {
                    </div>
                </div>
            </div>
-     </div>
+    </div>
+  </div>
 
-     </div>
 
-
-      `
+      `;
      
     }
+
+
     constructor() {
         super();
+        // get appointment data from localstorage when during page load
         this._getappointData();
       }
+
+
     static get properties() {
       return {
 
@@ -157,4 +139,5 @@ class BookingSummary extends PolymerElement {
 }
 
 
+//registering into the webbrowser using cusomelement
 window.customElements.define('booking-summary-comp', BookingSummary);

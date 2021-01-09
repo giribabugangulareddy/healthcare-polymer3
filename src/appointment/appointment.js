@@ -1,6 +1,17 @@
+/**Import the Polymer library and html helper function
+* Import the Polymer iron-image
+* Import the Polymer iron-icon
+* Import the Polymer iron-form
+* Import the Polymer paper-input
+* Import the Polymer paper-toast
+* Import the Polymer paper-dropdown-menu
+* Import the Polymer paper-item
+* Import the Polymer paper-listbox
+* Import the Polymer paper-button
+* Import the Polymer paper-spinner
+*/
+
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-
-
 import '@polymer/iron-image/iron-image.js';
 import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-icons/iron-icons.js';
@@ -12,11 +23,11 @@ import '@polymer/paper-item/paper-item.js';
 import '@polymer/paper-listbox/paper-listbox.js';
 import '@polymer/paper-button/paper-button.js';
 import '@polymer/paper-spinner/paper-spinner.js';
-
+import '../styles/shared-styles.js';
 class Appointment extends PolymerElement {
   static get template() {
     return html`
-      <style>
+      <style include="shared-styles">
       paper-spinner{
         position: fixed;
         top: calc(50% - 14px);
@@ -24,7 +35,7 @@ class Appointment extends PolymerElement {
       }
       .banner-img {
         width: 100%;
-        height: 200px;
+        height: 205px;
         background-color: lightgray;
       }
 
@@ -44,77 +55,24 @@ class Appointment extends PolymerElement {
         margin:0 auto;
         margin-top: 5em;
       }
-      .consult-img{
-        width: 150px;
-        height: 70px;
-      }
-      .right-box-flex{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        background-color: #396cf0;
-      }
-      .right-img{
-        padding:20px
-      }
-      .align-right-box{
-        text-align: left;
-        padding: 15px;
-        font-family: 'Roboto';
-      }
-      .align-right-box p{
-        font-size: 14px;
-      }
-      .flex-message{
-        border: 1px solid #ccc;
-        text-align: left;
-        display: flex;
-        flex-direction: row;
-        padding: 20px;
-        width: 60%;
-        background: #fff;
-        margin-top: 30px;
-      }
-      .time-box{
-        padding: 15px;
-        border-right: 1px solid #ccc;
-        font-family: 'Roboto';
-        font-size: 15px;
-        color: #000;
-        text-align: center;
-      }
-      .timeings{
-        padding: 12px;
-        font-size: 13px;
-        font-family: 'Roboto';
-        color: #396cf0;
-        line-height: 2;
-      }
-      .icon-color{
-        color: #396cf0;
-        margin-bottom: 7px;
-      }
+      
+      
+      
+      
+   
+    
+
+  
       .bg-color{
         background-color:#dce5ec6b;
       }
 
-      .left-box{
-        border:1px solid #ccc;
-        text-align: left;
-        padding: 30px;
-      }
-      .title{
-          text-align:center;
-          color:#000;
-          font-size: 22px;
-          font-family: 'Roboto';
-      }
 
-      .sub-btn{
-          padding: 15px 0;
-
+     
+      
+      .indigo{
+        width:100%;
       }
-
       paper-dropdown-menu {
         --paper-dropdown-menu: {
           left:0 !important;
@@ -126,6 +84,7 @@ class Appointment extends PolymerElement {
       --paper-button-raised-keyboard-focus: {
         background-color: var(--paper-pink-a200) !important;
         color: white !important;
+        width:100%;
       };
     }
     paper-button.indigo {
@@ -140,11 +99,7 @@ class Appointment extends PolymerElement {
         color: white !important;
       };
     }
-    .margin-btm{
-      
-    margin-bottom: 5px;
-
-    }
+   
     .custom {
       width: 450px;
 
@@ -157,31 +112,27 @@ class Appointment extends PolymerElement {
       opacity:1;
     }
     @media (max-width: 1200px) {
-      .right-box-flex {
-        flex-direction: column;
-      }
      
+      .banner-img{
+        height: 155px;
+      }
 
       .container {
         width: 95%;
       }
-      .timeings{
-        font-size: 12px;
-      }
+      
     }
+   
     @media (max-width: 992px) {
-      .right-box-flex {
-        flex-direction: row;
-      }
+      .banner-img {
+        height: 140px;
+    }
       .flex-container{
         display: block;
         width: 80%;
         margin:0 auto;
       }
-      .flex-message {
-        width: 94%;
-        padding: 14px;
-      }
+     
       .custom {
         width: 100%;
         
@@ -189,34 +140,40 @@ class Appointment extends PolymerElement {
     }
 
     @media (max-width: 767px) {
-      .right-box-flex {
-        flex-direction: column;
+      .banner-img{
+      height: 110px;
       }
-     
     }
     @media (max-width: 600px){
      
-    
+    .banner-img {
+        height: 90px;
+    }
     .flex-container {
       width: 100%;
     }
 
   }
   @media (max-width: 480px){
+    .banner-img {
+      height: 55px;
+  }
     .flex-message {
       width: 92%;
   }
   .flex-container .width{
     margin: 0;
   }
-  .align-right-box h2{
-    font-size: 22px;
-  }
-      </style>
-      <paper-spinner active="[[waiting]]"></paper-spinner>
+  
+  </style>
+
+
+<!-- paper-spinner is used to showing whenever submit form the page -->
+<paper-spinner active="[[waiting]]"></paper-spinner>
+
+<!-- app-location is used get rootpath --!>
 <app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>   
 <div class="bg-color" id="spennerOpacity">
-
 <div>
     <iron-image class="banner-img" sizing="cover" preload src="../../images/doctor4.png"></iron-image>
 </div>
@@ -228,6 +185,9 @@ class Appointment extends PolymerElement {
   <div class="left-box">
 
         <h1 class="title">Make An Appointment</h1>
+
+        <!-- iron-form is used get form value data  on-iron-form-response -->
+        <!-- paper-input add to validtions purpose auto-validate and pattern ,error-message -->
         <iron-form id="formOne" on-iron-form-response="onResponse">
           <form method="post" action="https://httpbin.org/post" is="iron-form">
 
@@ -235,82 +195,83 @@ class Appointment extends PolymerElement {
             
           <paper-input label="Phone Number" name="phone" auto-validate pattern="[0-9]*" maxlength="10" minlength="10" error-message="Enter Phone Number & should be 10 digits" required value=""></paper-input>
 
+          <!--service dropdown field -->
          <div class="margin-btm">
-         <paper-dropdown-menu label="Select Service" class="custom" auto-validate required error-message="Please Select Service ">
-         <paper-listbox slot="dropdown-content" name="Service" id="service" attr-for-selected="value"   class="dropdown-content  custom" horizontalAlign='left'>
-           <paper-item value="Gynaecology">Gynaecology</paper-item>
-           <paper-item value="Orthopaedics">Orthopaedics</paper-item>
-           <paper-item value="Lense Expert">Lense Expert</paper-item>
-           <paper-item value="Cardiology">Cardiology</paper-item>
-           <paper-item value="Associate Eye">Associate Eye</paper-item>
-           <paper-item value="Gastroenterology">Gastroenterology</paper-item>
-         </paper-listbox>
-      </paper-dropdown-menu>
+          <paper-dropdown-menu label="Select Service" class="custom" auto-validate required error-message="Please Select Service ">
+            <paper-listbox slot="dropdown-content" name="Service" id="service" attr-for-selected="value"   class="dropdown-content  custom" horizontalAlign='left'>
+                <paper-item value="Gynaecology">Gynaecology</paper-item>
+                <paper-item value="Orthopaedics">Orthopaedics</paper-item>
+                <paper-item value="Lense Expert">Lense Expert</paper-item>
+                <paper-item value="Cardiology">Cardiology</paper-item>
+                <paper-item value="Associate Eye">Associate Eye</paper-item>
+                <paper-item value="Gastroenterology">Gastroenterology</paper-item>
+            </paper-listbox>
+          </paper-dropdown-menu>
          </div>
 
+         <!--Doctor dropdown field -->
          <div class="margin-btm">
-         <paper-dropdown-menu label="Select Doctor" auto-validate required error-message="Please Select Doctor">
-         <paper-listbox slot="dropdown-content" name="doctor" id="doctor" attr-for-selected="value"  class="dropdown-content custom" required horizontalAlign='left'>
-           <paper-item value="Dr. Zinia Zara">Dr. Zinia Zara</paper-item>
-           <paper-item value="Dr. Nadim Kamal">Dr. Nadim Kamal</paper-item>
-           <paper-item value="Dr. Rihana Roy">Dr. Rihana Roy</paper-item>
-           <paper-item value="Dr. Steven Roy">Dr. Steven Roy</paper-item>
-           <paper-item value="Dr. Johora Roy"> Dr. Johora Roy</paper-item>
-           <paper-item value="Dr. Jason Roy">Dr. Jason Roy</paper-item>
-         </paper-listbox>
-      </paper-dropdown-menu>
+          <paper-dropdown-menu label="Select Doctor" auto-validate required error-message="Please Select Doctor">
+            <paper-listbox slot="dropdown-content" name="doctor" id="doctor" attr-for-selected="value"  class="dropdown-content custom" required horizontalAlign='left'>
+                <paper-item value="Dr. Zinia Zara">Dr. Zinia Zara</paper-item>
+                <paper-item value="Dr. Nadim Kamal">Dr. Nadim Kamal</paper-item>
+                <paper-item value="Dr. Rihana Roy">Dr. Rihana Roy</paper-item>
+                <paper-item value="Dr. Steven Roy">Dr. Steven Roy</paper-item>
+                <paper-item value="Dr. Johora Roy"> Dr. Johora Roy</paper-item>
+                <paper-item value="Dr. Jason Roy">Dr. Jason Roy</paper-item>
+            </paper-listbox>
+          </paper-dropdown-menu>
          </div>
 
+         <!--Available Date dropdown field -->
          <div class="margin-btm">
-         <paper-dropdown-menu label=" Select Available Date" auto-validate required error-message="Please Select Available Date">
-         <paper-listbox slot="dropdown-content" id="availableDate" attr-for-selected="value"   class="dropdown-content custom" horizontalAlign='left'>
-           <paper-item value="January 10, 2021">January 10, 2021</paper-item>
-           <paper-item value="January 11, 2021">January 11, 2021</paper-item>
-           <paper-item value="January 12, 2021">January 12, 2021</paper-item>
-           <paper-item value="January 13, 2021">January 13, 2021</paper-item>
-           <paper-item value="January 14, 2021">January 14, 2021</paper-item>
-           <paper-item value="January 15, 2021">January 15, 2021</paper-item>
-         </paper-listbox>
-      </paper-dropdown-menu>
+            <paper-dropdown-menu label=" Select Available Date" auto-validate required error-message="Please Select Available Date">
+              <paper-listbox slot="dropdown-content" id="availableDate" attr-for-selected="value"   class="dropdown-content custom" horizontalAlign='left'>
+                <paper-item value="January 10, 2021">January 10, 2021</paper-item>
+                <paper-item value="January 11, 2021">January 11, 2021</paper-item>
+                <paper-item value="January 12, 2021">January 12, 2021</paper-item>
+                <paper-item value="January 13, 2021">January 13, 2021</paper-item>
+                <paper-item value="January 14, 2021">January 14, 2021</paper-item>
+                <paper-item value="January 15, 2021">January 15, 2021</paper-item>
+              </paper-listbox>
+            </paper-dropdown-menu>
          </div>
 
-
+         <!--Available Time dropdown field -->
          <div class="margin-btm">
-         <paper-dropdown-menu label="Select Available Time" auto-validate required error-message="Please Select Available Time">
-         <paper-listbox slot="dropdown-content" id="availableTime" attr-for-selected="value"  class="dropdown-content custom" horizontalAlign='left'>
-           <paper-item value="10:00 AM">10:00 AM</paper-item>
-           <paper-item value="11:00 AM">11:00 AM</paper-item>
-           <paper-item value="12:00 AM">12:00 PM</paper-item>
-           <paper-item value="13:00 AM">02:00 PM</paper-item>
-           <paper-item value="14:00 AM">03:00 PM</paper-item>
-           <paper-item value="15:00 AM">04:00 PM</paper-item>
-         </paper-listbox>
-      </paper-dropdown-menu>
+          <paper-dropdown-menu label="Select Available Time" auto-validate required error-message="Please Select Available Time">
+            <paper-listbox slot="dropdown-content" id="availableTime" attr-for-selected="value"  class="dropdown-content custom" horizontalAlign='left'>
+                <paper-item value="10:00 AM">10:00 AM</paper-item>
+                <paper-item value="11:00 AM">11:00 AM</paper-item>
+                <paper-item value="12:00 AM">12:00 PM</paper-item>
+                <paper-item value="13:00 AM">02:00 PM</paper-item>
+                <paper-item value="14:00 AM">03:00 PM</paper-item>
+                <paper-item value="15:00 AM">04:00 PM</paper-item>
+            </paper-listbox>
+          </paper-dropdown-menu>
          </div>
 
-
+         <!--Appointment Fee dropdown field -->
          <div class="margin-btm">
-         <paper-dropdown-menu label="Select Appointment Fee" auto-validate required error-message="Please Select Appointment Fee">
-         <paper-listbox slot="dropdown-content" id="appointmentFee" attr-for-selected="value"  class="dropdown-content custom" horizontalAlign='left'>
-           <paper-item value="400">Adult (Rs 400/-)</paper-item>
-           <paper-item value="200">Child (Rs 200/-)</paper-item>
-          
-         </paper-listbox>
-      </paper-dropdown-menu>
+          <paper-dropdown-menu label="Select Appointment Fee" auto-validate required error-message="Please Select Appointment Fee">
+            <paper-listbox slot="dropdown-content" id="appointmentFee" attr-for-selected="value"  class="dropdown-content custom" horizontalAlign='left'>
+              <paper-item value="400">Adult (Rs 400/-)</paper-item>
+              <paper-item value="200">Child (Rs 200/-)</paper-item>
+            </paper-listbox>
+          </paper-dropdown-menu>
          </div>
 
+         <!-- submit button  -->
          <div class="sub-btn margin-btm">
-         <paper-button raised class="custom indigo"  on-tap="submitHandler" >Submit</paper-button>
+         <paper-button raised class="indigo"  on-tap="submitHandler" >Submit</paper-button>
          </div>
           </form>
         </iron-form>
-  </div>
-  
-  
-  </div>
+  </div> 
+</div>
  
-  <div  class="width" style="flex-grow: 4">
-  
+<!-- left side box -->
+<div  class="width" style="flex-grow: 4">
   <div class="right-box-flex">
     <div class="align-right-box">
       <h2>How are feeling today ?</h2>
@@ -319,12 +280,9 @@ class Appointment extends PolymerElement {
   <div class="right-img">
       <iron-image class="consult-img" sizing="cover" preload src="../../images/consulting.png"></iron-image>
   </div>
-  
-<div>
 
-</div>
   </div>
-  
+  <!--left side timing box -->
   <div class="flex-message">
     <div class="time-box">
       <iron-icon icon="alarm" class="icon-color"></iron-icon></br>
@@ -341,6 +299,7 @@ class Appointment extends PolymerElement {
 </div>
 </div>
 
+<!--paper-toast is used to show form submitting -->
 <paper-toast id="toast"></paper-toast>
 
       `
@@ -348,10 +307,11 @@ class Appointment extends PolymerElement {
   }
   static get properties() {
     return {
-        
+      // sourceData object is get form data from the iron-form
       sourceData:{
         type:Object
       },
+      // waiting is used to show and hide spenner
       waiting: {
         type: Boolean,
         value:false
@@ -365,6 +325,7 @@ class Appointment extends PolymerElement {
   submitHandler() {
     this.$.formOne.submit();
   }
+
   // get the data from iron-form
   onResponse(e) {
     // set values from dropdown
@@ -378,7 +339,8 @@ class Appointment extends PolymerElement {
     
     this.response = e.detail.response.form;
     console.log(' this.response', this.response);
-//  set values to soucedata object from dropdown field
+
+  // set values to soucedata object from dropdown field and inpt field
     this.sourceData = {
       fee : fee,
       time:time,
@@ -389,29 +351,34 @@ class Appointment extends PolymerElement {
       username: this.response.patientName
     }
     console.log('data', this.sourceData)
+
+    // if sourcedata object value is available then store the data to localstorage 
     localStorage.setItem('appointmentData',JSON.stringify(this.sourceData));
     this.openToast();
 
     // waiting is true the spinner
     this.waiting =true;
 
-    // applay the css style for opcacity id
+    // applay the css style for #spennerOpacity id
     this.$.spennerOpacity.style.opacity = '0.3'
 
 
     // settimeout funtion is used to show the toast message
     setTimeout(()=> {
       
+    // when the form is submitted then route is redirect to booking-summary page
       this.set('route.path', '/booking-summary');
     }, 1000);
     
+    // after submit the form then reset the form 
     this.$.formOne.reset();
   }
 
-   // open the toast message when submit Successfully
+   // open the toast message when submit is Success
    openToast() {
     this.$.toast.show({text: 'Successfully Submitted', duration: 3000})
   }
 }
 
+//registering into the webbrowser using cusomelement
 window.customElements.define('appointment-comp', Appointment);

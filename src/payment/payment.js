@@ -1,5 +1,15 @@
+/**Import the Polymer library and html helper function
+* Import the Polymer iron-icons
+* Import the Polymer paper-card
+* Import the Polymer iron-image
+* Import the Polymer dropdown-menu
+* Import the Polymer iron-form
+* Import the shared-styles
+* Import the Polymer paper-toast
+**/
+
+
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import '@polymer/iron-input/iron-input.js';
 import '@polymer/paper-button/paper-button.js';
 import '@polymer/iron-form/iron-form.js';
 import '@polymer/paper-card/paper-card.js';
@@ -8,22 +18,22 @@ import '@polymer/paper-item/paper-item.js';
 import '@polymer/paper-listbox/paper-listbox.js';
 import '@polymer/iron-image/iron-image.js';
 import '@polymer/paper-toast/paper-toast.js';
+import '../styles/shared-styles.js';
+
+
 class Payment extends PolymerElement {
     static get template() {
+
       return html`
-      <style>
+
+      <style include="shared-styles">
+      
       .login-frem{
         width: 30%;
         margin: 0 auto;
         padding: 30px;
         
     };
-    .flex-box{
-        display:flex;
-    }
-    .pad10{
-        padding: 0 30px 0 0;
-    }
     paper-card{
         width: 100%;
         padding: 30px;
@@ -253,5 +263,5 @@ class Payment extends PolymerElement {
   };
 }
 
-
+//registering into the webbrowser using cusomelement
 window.customElements.define('payment-comp', Payment);

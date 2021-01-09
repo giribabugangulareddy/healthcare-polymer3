@@ -1,3 +1,8 @@
+// Import the Polymer library and html helper function
+// Import the Polymer iron-image
+// 
+// Import departments-page
+
 import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
 import '@polymer/iron-image/iron-image.js';
 import'../departments/departments.js';
@@ -17,32 +22,27 @@ class Home extends PolymerElement {
 
     @media screen and (max-width:320px){
       .img-fluid{
-        width: 319px;
-        height: 150px;
-        object-fit: cover;
+        width: 306px;
+        height: auto;
+        object-fit: contain;
       }
     };
       </style>
      
-      <div >
-<img sizing="cover" class="img-fluid" preload src="../../images/doctor.jpg" />
+      <!-- landing page banner image-->
+      <div>
+        <img sizing="cover" class="img-fluid" preload src="../../images/doctor.jpg" />
 
-<departments-comp></departments-comp>
-</div>
-      `
+        <!--appending the department component page -->
+        <departments-comp></departments-comp>
+      </div>
+      `;
 
-  }
-
-  static get properties() {
-    return {
-      myname:{
-        type:String,
-        notify:true,
-        
-      }
-    }
-  }
-}
+  };
 
 
+};
+
+
+//registering into the webbrowser using cusomelement
 window.customElements.define('home-comp', Home);

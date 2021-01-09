@@ -1,18 +1,26 @@
+// Import the Polymer library and html helper function
+// Import the Polymer paper-toast
+// Import the Polymer iron-input
+// Import the Polymer paper-button
+// Import the Polymer iron-input
+// Import the Polymer iron-form
+// Import the Polymer paper-checkbox
+// 
+
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import '@polymer/paper-toast/paper-toast.js';
 import '@polymer/iron-input/iron-input.js';
 import '@polymer/paper-button/paper-button.js';
 import '@polymer/iron-form/iron-form.js';
 import '@polymer/paper-checkbox/paper-checkbox.js';
-
+import '../styles/shared-styles.js';
 
 
 class AdminLogin extends PolymerElement {
-  
 
     static get template() {
       return html`
-      <style>
+      <style include="shared-styles">
       
       .login-frem{
         width:25%;
@@ -75,12 +83,17 @@ class AdminLogin extends PolymerElement {
       </style>
 
 
+<!-- app-location is an element that provides synchronization between the browser location bar and the state of an app -->
 
-      <app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>
-     <div class="bg-color">
-        <div class="center-box">
-        <div class="login-frem">
+<app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>
+<div class="bg-color">
+  <div class="center-box">
+      <div class="login-frem">
         <h1>Login </h1>
+
+          <!-- iron-form is used get form value data  on-iron-form-response -->
+          <!-- paper-input add to validtions purpose auto-validate and pattern ,error-message -->
+
           <iron-form id="formOne" on-iron-form-response="onResponse">
               <form method="post" action="https://httpbin.org/post" is="iron-form">
               
@@ -96,20 +109,20 @@ class AdminLogin extends PolymerElement {
                 </div>
               </form>
           </iron-form>
-        </div>
-        </div>
-      
+      </div>
+  </div>      
 
-     </div>
-     <paper-toast id="toast"></paper-toast>
+</div>
+
+<!--paper-toast  is used to when submit the form and  show toast messages --> 
+<paper-toast id="toast"></paper-toast>
       
-      
-      `
+  `;
 
     };
     static get properties() {
       return {
-          
+        // response is get the form data from iron-onResponse
         response: {
               type: String,
           },
@@ -120,22 +133,21 @@ class AdminLogin extends PolymerElement {
 
 
 
-    // form submit funtion
+   
     submitHandler() {
-      
+       // form submit used to formone is from id
       this.$.formOne.submit();
     };
 
-    // get the form data from irom-form response
+   
     onResponse(e) {
-      
+       // get the form data from irom-form response
       
       console.log('e.detail.response.form', e.detail.response.form);
       this.response = e.detail.response.form;
 
-      // var data = localStorage.getItem('credentials');
-      //   console.log(' this.data',JSON.parse( data));
 
+      // here we form value comfired to static values
       if(this.response.email != 'admin@gmail.com'){
         this.errorMsg = "Invalid credentials";
 
@@ -143,26 +155,30 @@ class AdminLogin extends PolymerElement {
         this.errorMsg = "Invalid credentials";
 
       }else{
-      //  if valid error 
+      //  if form valid is we have empty the errorMsg property
         this.errorMsg="";
 
+        // if form valid the form data are stored to localstorage
         console.log(' this.response',  this.response);
         localStorage.setItem('credentials',JSON.stringify(this.response))
 
+        // then show toast messages and reset the form
         this.openToast();
         this.$.formOne.reset();
         
 
-        // separate route based on admin checkbox
+        // separate routes based on admin checkbox
         
         if(!this.response.admin){
-        // settimeout funtion is used to show the toast message
+
+        // settimeout funtion is used to show the toast message for 1 second dealy
+        // if user login route is redirect to appointment page
         setTimeout(()=> {
           this.set('route.path', '/appointment');
         }, 1000);
 
         }else{
-
+        // if user admin route is redirect to dashboard page
           setTimeout(()=> {
             this.set('route.path', '/dashboard');
           }, 1000);
@@ -170,14 +186,14 @@ class AdminLogin extends PolymerElement {
         
       };
       
-    }
+    };
 
-    // open the toast message when login Successfully
+    // open the toast message when login is Successfully
     openToast() {
       this.$.toast.show({text: 'Successfully Login', duration: 3000})
     }
 }
 
 
-
+//registering into the webbrowser using cusomelement
 window.customElements.define('admin-login', AdminLogin);
