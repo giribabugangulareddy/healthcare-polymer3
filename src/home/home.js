@@ -12,8 +12,6 @@ class Home extends PolymerElement {
   static get template() {
     return html`
       <style>
-     
-     
       .img-fluid{
         width: 100%;
         background-color: lightgray;

@@ -223,18 +223,22 @@ class Payment extends PolymerElement {
       `
     }
   
-// form submitting function
+
     submitHandler() {
+
+      // form submitting function
       this.$.formOne.submit();
     }
 
-    // get the data from iron-form
+    
   onResponse(e) {
+
+    // get the data from iron-form in e.details.reposnse.form
     this.response = e.detail.response.form;
     console.log(' this.response', this.response);
     this.openToast();
     this.openModal();
-    // settimeout funtion is used to show the toast message
+    
    
    
   }
@@ -246,19 +250,25 @@ class Payment extends PolymerElement {
 
 
   openModal() {
-    // when we logout open the confirm modal 
 
+    // when we click on the payment button then open the success message modal 
     this.$.dialog.open();
   };
 
   _modalconfirmed(){
-    // when we confirm the logout funtion
+
+      //when we  click on the OK button in modal
+      //and its url redirect to home
+      // here settimeout funtion is used to delay 1 second for show the toast message
+     
+    
+   
     setTimeout(()=> {
       console.log('sdfasdf')
       this.set('route.path', '/home');
     }, 1000);
     
-    console.log('Confirmed', this.loginData);
+    // after redirect url then reset the form
     this.$.formOne.reset();
   };
 }

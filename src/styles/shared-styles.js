@@ -7,25 +7,7 @@ $_documentContainer.innerHTML = `<dom-module id="shared-styles">
 
 <template>
 <style>
-.btn,.btn:hover,.btn:active{
-  color: #fff;
-  background-color: #337ab7;
-  border-color: #2e6da4;
-  cursor: pointer;
-  background-image: none;
-  border: 1px solid transparent;
-  padding: 8px 12px;
-  font-size: 14px;
-  line-height: 2;
-  border-radius: 4px;
-  line-height: 1.42857143;
-  display: inline-block;
-  margin-bottom: 0;
-  font-weight: 400;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-}
+
 .toolbar {
   display: flex;
   justify-content: space-between;

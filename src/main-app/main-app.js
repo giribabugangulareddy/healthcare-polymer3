@@ -63,8 +63,19 @@ class MainApp extends PolymerElement {
     }
     .confirm-btn{
       float:right;
-  }
-
+      }
+      .btn-appointmnet {
+        font-size: 15px;
+        background: #396cf0;
+        color: #fff;
+        text-transform: initial;
+      }
+      paper-icon-item{
+        padding: 0;
+      }
+      .pad0{
+        padding: 0;
+      }
     /* small screen */
     @media (max-width: 992px) {
       paper-icon-item a: hover{
@@ -139,7 +150,8 @@ class MainApp extends PolymerElement {
          <span> <a  on-click="openModal"> Logout</a></span>
          </template>
          <template is="dom-if" if="{{!loginData}}">
-          <button class="btn"> <a name="appointment" href="[[rootPath]]login">Appointment</a></button>
+         <paper-button  raised class="btn-appointmnet"><a name="appointment" href="[[rootPath]]login">Appointment</a></paper-button>
+         
           </template>
           </div>
         </div>
@@ -196,7 +208,11 @@ class MainApp extends PolymerElement {
   <app-toolbar>
   <template is="dom-if" if="{{!loginData}}">
   <paper-icon-item on-click="_toggleDrawer">
-  <paper-item> <button class="btn"> <a name="login" href="[[rootPath]]login">Appointment</a></button></paper-item>
+  <paper-item class="pad0"> 
+  <paper-button  class="btn-appointmnet" raised >
+  <a name="appointment" href="[[rootPath]]login">Appointment</a>
+  </paper-button>
+  </paper-item>
   </template>
   </app-toolbar>
 
@@ -301,9 +317,7 @@ _routerChanged(page){
 
 _pageChanged(page){
 
-   /**
-     * import pages component on demand
-     */
+  // import pages component on demand
     
 
     console.log('page',page)
@@ -337,14 +351,17 @@ _pageChanged(page){
     }
 }; 
 
-// when we view mobile on screen drawer open and close
+
   _toggleDrawer() {
+    // when we view mobile on screen drawer open and close
+
     console.log( ' this.drawerOpened',this.drawerOpened)
     this.drawerOpened = !this.drawerOpened;
   };
 
-  // clear the local storage data when user logout
+  
   clearStorege(){
+    // clear the local storage data when user logout
     this.openToast();
     localStorage.clear();
 
@@ -375,7 +392,10 @@ _pageChanged(page){
    // when we confirm the logout funtion
 
    this.clearStorege();
-   console.log('Confirmed', this.loginData);
+
+  //  location reload used to reload the page and when page sucessfully logout
+   location.reload();
+  
    
  };
 };

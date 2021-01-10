@@ -101,7 +101,7 @@ class Appointment extends PolymerElement {
     }
    
     .custom {
-      width: 450px;
+      width: 365px;
 
     }
     paper-item:hover{
@@ -110,6 +110,11 @@ class Appointment extends PolymerElement {
 
     #spennerOpacity{
       opacity:1;
+    }
+    @media (max-width: 1525px) {
+      .custom {
+        width: 200px;
+    }
     }
     @media (max-width: 1200px) {
      
@@ -120,7 +125,9 @@ class Appointment extends PolymerElement {
       .container {
         width: 95%;
       }
-      
+      .custom {
+        width: 270px;
+    }
     }
    
     @media (max-width: 992px) {
@@ -134,9 +141,8 @@ class Appointment extends PolymerElement {
       }
      
       .custom {
-        width: 100%;
-        
-      }
+        width: 360px;
+    }
     }
 
     @media (max-width: 767px) {
@@ -152,8 +158,10 @@ class Appointment extends PolymerElement {
     .flex-container {
       width: 100%;
     }
-
+    .custom {
+      width: 350px;
   }
+  };
   @media (max-width: 480px){
     .banner-img {
       height: 55px;
@@ -163,6 +171,9 @@ class Appointment extends PolymerElement {
   }
   .flex-container .width{
     margin: 0;
+  }
+  .custom {
+    width: 250px;
   }
   
   </style>
@@ -318,13 +329,13 @@ class Appointment extends PolymerElement {
         
       },
     }
-  }
+  };
 
 
   // form submitting function
   submitHandler() {
     this.$.formOne.submit();
-  }
+  };
 
   // get the data from iron-form
   onResponse(e) {
@@ -360,8 +371,8 @@ class Appointment extends PolymerElement {
     this.waiting =true;
 
     // applay the css style for #spennerOpacity id
-    this.$.spennerOpacity.style.opacity = '0.3'
-
+    this.$.spennerOpacity.style.opacity = '0.3';
+    
 
     // settimeout funtion is used to show the toast message
     setTimeout(()=> {
@@ -378,7 +389,7 @@ class Appointment extends PolymerElement {
    openToast() {
     this.$.toast.show({text: 'Successfully Submitted', duration: 3000})
   }
-}
+};
 
 //registering into the webbrowser using cusomelement
 window.customElements.define('appointment-comp', Appointment);

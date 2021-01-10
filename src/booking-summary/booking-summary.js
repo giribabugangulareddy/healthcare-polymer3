@@ -32,7 +32,7 @@ class BookingSummary extends PolymerElement {
     }
    
 
-      </style>
+</style>
 
 
 
@@ -69,16 +69,16 @@ class BookingSummary extends PolymerElement {
   </div>
 
 
-      `;
+`;
      
-    }
+};
 
 
     constructor() {
         super();
         // get appointment data from localstorage when during page load
         this._getappointData();
-      }
+      };
 
 
     static get properties() {
@@ -94,26 +94,35 @@ class BookingSummary extends PolymerElement {
         type: Boolean,
         value:false
         
-      },
+      }
       };
 
     };
 
 
 
-    // get appointment data from localstorage
+    
     _getappointData(){
-        
+
+        // get appointment data from localstorage
        var data = JSON.parse(localStorage.getItem('appointmentData'));
 
        this.appointmentData =[];
 
        this.appointmentData.push(data);
 
-    // calculating the bookingfee and total fee of customer
+    /**calculating the booking charges(10%)  from the base bookingfee
+     * itareate the appointment array using foreach menthod and
+     * pick bookingCharges value from appointment array loop and 
+     * separate 10% of on booking Charges (10%) and add to the total fee( bookingfee + bookingcharges 10%)
+     * */ 
+
        this.appointmentData.forEach(element => {
            
            this.bookinFee = ((element.fee * 10) / 100);
+
+          //  adding booking fee + bookingcharges fee
+          //  and here we get data is type string values so that we used Number type to calculating
            this.total = Number(this.bookinFee) + Number(element.fee);
            console.log(' this.bookinFee',  this.bookinFee, 'this.total', this.total)
        });
@@ -122,21 +131,23 @@ class BookingSummary extends PolymerElement {
    
     };
 
-    // redirect url to home
+    // payment details submit funtion
     payment(){
-      // wating true is  add spenner 
+      // wating true is to add spenner 
       this.waiting =true;
 
       // spnner opacity added
       this.$.spennerOpacity.style.opacity = '0.3'
       
+      // delay for 1second for showing spnner and toast message
       setTimeout(()=> {
         
+        // url redirect to payment component
         this.set('route.path', '/payment');
       }, 1000);
         
     };
-}
+};
 
 
 //registering into the webbrowser using cusomelement

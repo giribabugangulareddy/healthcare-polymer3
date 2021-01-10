@@ -104,6 +104,7 @@ class Dashboard extends PolymerElement {
         text-align: left;
         padding: 14px;
       }
+
       /* responsive code of hospital cards */
       @media screen and (max-width:1200px){
           .box{
@@ -275,10 +276,9 @@ class Dashboard extends PolymerElement {
 </div>
 
 
-
-      `;
+`;
      
-    }
+}
 
   
 };
