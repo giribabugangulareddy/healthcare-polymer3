@@ -56,6 +56,7 @@ class MainApp extends PolymerElement {
   static get template() {
     return html`
     <style  include="shared-styles">
+    
     a {
       text-decoration: none;
       font-size: inherit;
@@ -135,9 +136,9 @@ class MainApp extends PolymerElement {
               <span class="header-menu btn-hover">
               <a name="home" href="[[rootPath]]home">Home</a>
               <a name="department" href="[[rootPath]]department">Department</a>
-              <a href="">Doctors</a>
+              <a >Doctors</a>
               <a >About</a>
-              <a href="">Contact</a>
+              <a >Contact</a>
               </span>
           </div>
         </div>
@@ -147,7 +148,7 @@ class MainApp extends PolymerElement {
        
           <!-- header rightside menu-->
          <template is="dom-if" if="{{loginData}}">
-         <span> <a  on-click="openModal"> Logout</a></span>
+         <span> <a  on-click="logoutOpenModal"> Logout</a></span>
          </template>
          <template is="dom-if" if="{{!loginData}}">
          <paper-button  raised class="btn-appointmnet"><a name="appointment" href="[[rootPath]]login">Appointment</a></paper-button>
@@ -201,7 +202,7 @@ class MainApp extends PolymerElement {
   <app-toolbar>
   <template is="dom-if" if="{{loginData}}" >
   <paper-icon-item on-click="_toggleDrawer">
-  <paper-item  on-click="openModal">Logout</paper-item>
+  <paper-item  on-click="logoutOpenModal">Logout</paper-item>
   </template>
   </app-toolbar>
 
@@ -240,13 +241,13 @@ class MainApp extends PolymerElement {
       with selected value and triggers page switch -->
 
 <iron-pages role="main" selected="[[page]]" attr-for-selected="name"  role="main">
-<home-comp name="home" class="z-index"></home-comp>
-<appointment-comp name="appointment"></appointment-comp>
-<admin-login  name="login" ></admin-login>
-<departments-comp name="department"></departments-comp>
-<booking-summary-comp name="booking-summary"></booking-summary-comp>
-<dashboaed-comp name="dashboard"></dashboaed-comp>
-<payment-comp name="payment"></payment-comp>
+      <home-comp name="home" class="z-index"></home-comp>
+      <appointment-comp name="appointment"></appointment-comp>
+      <admin-login  name="login" ></admin-login>
+      <departments-comp name="department"></departments-comp>
+      <booking-summary-comp name="booking-summary"></booking-summary-comp>
+      <dashboaed-comp name="dashboard"></dashboaed-comp>
+      <payment-comp name="payment"></payment-comp>
 </iron-pages>
 
 
@@ -260,19 +261,25 @@ class MainApp extends PolymerElement {
       // define a property ..
         page:{
             type:String,
+
+            // reflectToAttribute says that the attribute on the host node will change when the value changes.
             reflectToAttribute :true,
             observer:'_pageChanged',
-              /**
-         * specify an observer to be invoked when the property changes on switch case 
-         * this observer will onserve the page is availabe or not in switch case...
-          */ 
+            /**
+           * specify an observer to be invoked when the property changes on switch case 
+           * this observer will onserve the page is availabe or not in switch case...
+            */ 
         },
+
         routeData: Object,
         subroute: Object,
 
+        // drawerOpened is used to show and hide the drawer
         drawerOpened:{
           type: false,
         },
+
+        // to get login data from localstorage
         loginData:{
           type:String
         }
@@ -360,44 +367,46 @@ _pageChanged(page){
   };
 
   
-  clearStorege(){
-    // clear the local storage data when user logout
-    this.openToast();
-    localStorage.clear();
-
-    // To based to show and hide the appointment button and logout
-    // 
-    this.loginData = !this.loginData;
-
-    // once localstorage clear route is redirect to home
-    this.set('route.path', '/home');
-  };
-
-  
-  openToast() {
-    // when do the logout we have to show toast messages
-
-    this.$.toast.show({text: 'Successfully Logout', duration: 3000})
-  };
-
-  
-  openModal() {
-    // when we logout open the confirm modal 
+  logoutOpenModal() {
+    // when we logout button open the confirm modal 
 
     this.$.dialog.open();
   };
 
-  
- _modalconfirmed(){
-   // when we confirm the logout funtion
 
-   this.clearStorege();
-
-  //  location reload used to reload the page and when page sucessfully logout
-   location.reload();
+  _modalconfirmed(){
+    // when we confirm the logout funtion
+ 
+    this.clearStorege();
+ 
+   //  location reload used to reload the page and when page sucessfully logout
+    location.reload();
+    
+  };
   
-   
- };
+
+ clearStorege(){
+  // clear the local storage data when user logout
+  this.openToast();
+  localStorage.clear();
+
+  // To based to show and hide the appointment button and logout
+  // 
+  this.loginData = !this.loginData;
+
+  // once localstorage clear route is redirect to home
+  this.set('route.path', '/home');
+};
+
+
+
+openToast() {
+  // when do the logout we have to show toast messages
+
+  this.$.toast.show({text: 'Successfully Logout', duration: 3000})
+};
+
+
 };
 
 

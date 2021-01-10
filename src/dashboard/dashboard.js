@@ -229,7 +229,10 @@ class Dashboard extends PolymerElement {
 
 
 
-<!-- iron-ajax is used to call the tabledata url and get the tabel data from tabledata.json file in local-->
+<!-- iron-ajax element declaratively exposes network request functionality to Polymer's 
+      data-binding system tableData and it is json data.
+      handle-as: Specifies what data must be stored in the response  -->
+
 <iron-ajax 
     auto 
     url="../../data/tableData.json" 

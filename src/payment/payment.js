@@ -2,7 +2,7 @@
 * Import the Polymer iron-icons
 * Import the Polymer paper-card
 * Import the Polymer iron-image
-* Import the Polymer dropdown-menu
+* Import the Polymer paper-dropdown-menu
 * Import the Polymer iron-form
 * Import the shared-styles
 * Import the Polymer paper-toast
@@ -140,9 +140,10 @@ class Payment extends PolymerElement {
           margin-top: 40px;
           font-size: 25px;
         }
-      }
-      </style>
+      };
+</style>
 
+      <!-- app-location is used get rootpath --!>
       <app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>   
       <div class="login-frem">
       <paper-card>
@@ -261,10 +262,8 @@ class Payment extends PolymerElement {
       //and its url redirect to home
       // here settimeout funtion is used to delay 1 second for show the toast message
      
-    
-   
     setTimeout(()=> {
-      console.log('sdfasdf')
+      
       this.set('route.path', '/home');
     }, 1000);
     

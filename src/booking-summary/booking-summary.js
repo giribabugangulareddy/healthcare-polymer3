@@ -7,6 +7,7 @@ import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import '@polymer/paper-button/paper-button.js';
 import '@polymer/paper-spinner/paper-spinner.js';
 import '../styles/shared-styles.js';
+
 class BookingSummary extends PolymerElement {
     static get template() {
       return html`
@@ -56,7 +57,7 @@ class BookingSummary extends PolymerElement {
                        <p><span>Booking Date</span> <span class="pull-right">{{item.date}}</span></p>
                        <p><span>Booking Time</span> <span class="pull-right">{{item.time}}</span></p>
                        <p><span>Consulting fee </span> <span class="pull-right"> ₹{{item.fee}} /-</span></p>
-                       <p><span>Booking fee(10%) </span> <span class="pull-right">₹{{bookinFee}} /-</span></p>
+                       <p><span>Booking fee(10%) </span> <span class="pull-right">₹{{bookingFeeCharges}} /-</span></p>
                        <hr>
                        <p><span>Total fee</span> <span class="pull-right">Rs {{total}} /-</span></p>
                    </template>
@@ -75,7 +76,10 @@ class BookingSummary extends PolymerElement {
 
 
     constructor() {
+
+      // something that requires access to the shadow tree
         super();
+
         // get appointment data from localstorage when during page load
         this._getappointData();
       };
@@ -84,17 +88,21 @@ class BookingSummary extends PolymerElement {
     static get properties() {
       return {
 
+        // get appointmentData array
          appointmentData:Array,
+
+        //  to get total value 
          total:Number,
-         bookinFee:Number,
+
+        //  to get the booking Fee value
+         bookingFeeCharges:Number,
        
-    //   True when waiting for the server to repond.
-     
-    waiting: {
-        type: Boolean,
-        value:false
-        
-      }
+      // when waiting property is True for showing the spinner and it is defulat false
+        waiting: {
+          type: Boolean,
+          value:false
+         }
+
       };
 
     };
@@ -109,22 +117,23 @@ class BookingSummary extends PolymerElement {
 
        this.appointmentData =[];
 
+      //  appointment data  is pushed to appointmentData array
        this.appointmentData.push(data);
 
-    /**calculating the booking charges(10%)  from the base bookingfee
+    /**calculating the bookingFeecharges(10%)  from the base bookingfee
      * itareate the appointment array using foreach menthod and
      * pick bookingCharges value from appointment array loop and 
-     * separate 10% of on booking Charges (10%) and add to the total fee( bookingfee + bookingcharges 10%)
+     * separate the 10% of on bookingfee Charges (10%) and add to the total fee( base bookingfee + bookingcharges 10%)
      * */ 
 
        this.appointmentData.forEach(element => {
            
-           this.bookinFee = ((element.fee * 10) / 100);
+           this.bookingFeeCharges = ((element.fee * 10) / 100);
 
-          //  adding booking fee + bookingcharges fee
-          //  and here we get data is type string values so that we used Number type to calculating
-           this.total = Number(this.bookinFee) + Number(element.fee);
-           console.log(' this.bookinFee',  this.bookinFee, 'this.total', this.total)
+          //  adding base booking fee + bookingfeecharges 
+          //  and here we get data  type is string values so that we used Number type to calculating
+           this.total = Number(this.bookingFeeCharges) + Number(element.fee);
+           console.log(' this.bookingFeeCharges',  this.bookingFeeCharges, 'this.total', this.total)
        });
 
        
@@ -133,13 +142,13 @@ class BookingSummary extends PolymerElement {
 
     // payment details submit funtion
     payment(){
-      // wating true is to add spenner 
+      // wating true is to show the spenner 
       this.waiting =true;
 
       // spnner opacity added
       this.$.spennerOpacity.style.opacity = '0.3'
       
-      // delay for 1second for showing spnner and toast message
+      // delay for 1 second for showing spnner and toast message
       setTimeout(()=> {
         
         // url redirect to payment component
