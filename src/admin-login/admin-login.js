@@ -147,7 +147,7 @@ class AdminLogin extends PolymerElement {
       this.response = e.detail.response.form;
 
 
-      // here we form value comfired to static values
+      // here we form value comfired to hard coded values
       if(this.response.email != 'admin@gmail.com'){
         this.errorMsg = "Invalid credentials";
 

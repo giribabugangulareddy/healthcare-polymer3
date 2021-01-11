@@ -160,7 +160,7 @@ class Payment extends PolymerElement {
 
                 
                 <div class="flex-box">
-                <paper-dropdown-menu label="Expiry Date" class="pad10" auto-validate required error-message="Expiry Date">
+                <paper-dropdown-menu label="Expiry Month" class="pad10" auto-validate required error-message="Expiry Month">
                     <paper-listbox slot="dropdown-content" id="availableDate" attr-for-selected="value"   class="dropdown-content custom" horizontalAlign='left'>
                         <paper-item value="1">Jan </paper-item>
                         <paper-item value="2">Feb </paper-item>
@@ -176,7 +176,7 @@ class Payment extends PolymerElement {
                         <paper-item value="12">Dec</paper-item>
                     </paper-listbox>
                 </paper-dropdown-menu>
-                <paper-dropdown-menu label="Expiry Month" class="pad10" auto-validate required error-message="Expiry Month">
+                <paper-dropdown-menu label="Expiry Year" class="pad10" auto-validate required error-message="Expiry Year">
                     <paper-listbox slot="dropdown-content" id="availableDate" attr-for-selected="value"   class="dropdown-content custom" horizontalAlign='left'>
                         <paper-item value="1">2021 </paper-item>
                         <paper-item value="2">2022 </paper-item>
@@ -194,10 +194,6 @@ class Payment extends PolymerElement {
                 <paper-input name="cardCvv"  placeholder="CVV"  auto-validate pattern="[0-9]*" maxlength="4" minlength="3"  error-message="CVV" required ></paper-input>
                 </div>
 
-                
-                <div class="errmsg">
-                <small>{{errorMsg}}</small>
-                </div>
                 <div class="btn-align">
                 <paper-button  raised class="indigo" on-tap="submitHandler">Pay Now</paper-button>
                 </div>
@@ -223,7 +219,14 @@ class Payment extends PolymerElement {
         </paper-dialog> 
       `
     }
-  
+    static get properties() {
+      return {
+        // response is get form data from the iron-form
+        response:{
+          type:String
+        },
+      }
+    };    
 
     submitHandler() {
 

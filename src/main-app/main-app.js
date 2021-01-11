@@ -1,5 +1,4 @@
 /**Import the Polymer library and html helper function
-* Import the Polymer app-drawer-layout
 * Import the Polymer app-drawer
 * Import the Polymer app-header-layout
 * Import the Polymer app-header
@@ -15,14 +14,11 @@
 
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import { setPassiveTouchGestures, setRootPath } from '@polymer/polymer/lib/utils/settings.js';
-import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
-import '@polymer/app-layout/app-scroll-effects/app-scroll-effects.js';
 import '@polymer/app-layout/app-header/app-header.js';
 import '@polymer/app-layout/app-header-layout/app-header-layout.js';
 import '@polymer/app-layout/app-toolbar/app-toolbar.js';
 import '@polymer/app-layout/app-drawer/app-drawer.js';
-import '@polymer/app-layout/app-drawer-layout/app-drawer-layout.js';
 import '@polymer/iron-selector/iron-selector.js';
 import '@polymer/paper-item/paper-icon-item.js';
 import '@polymer/paper-item/paper-item.js';
@@ -311,11 +307,7 @@ _routerChanged(page){
       this.page = 'home';
     } else if (['home','login', 'appointment','department','booking-summary','dashboard','payment'].indexOf(page) !== -1) {
       this.page = page;
-
-      
        
-    } else{
-      this.page = 'invalid-page';
     }
 
 };

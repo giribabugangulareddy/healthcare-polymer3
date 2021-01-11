@@ -24,6 +24,7 @@ import '@polymer/paper-listbox/paper-listbox.js';
 import '@polymer/paper-button/paper-button.js';
 import '@polymer/paper-spinner/paper-spinner.js';
 import '../styles/shared-styles.js';
+
 class Appointment extends PolymerElement {
   static get template() {
     return html`
@@ -56,19 +57,9 @@ class Appointment extends PolymerElement {
         margin-top: 5em;
       }
       
-      
-      
-      
-   
-    
-
-  
       .bg-color{
         background-color:#dce5ec6b;
       }
-
-
-     
       
       .indigo{
         width:100%;
@@ -179,11 +170,12 @@ class Appointment extends PolymerElement {
   </style>
 
 
-<!-- paper-spinner is used to showing whenever submit form the page -->
+<!-- paper-spinner is used to showing whenever click on submit button  active is used show and hide-->
 <paper-spinner active="[[waiting]]"></paper-spinner>
 
 <!-- app-location is used get rootpath --!>
 <app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>   
+
 <div class="bg-color" id="spennerOpacity">
 <div>
     <iron-image class="banner-img" sizing="cover" preload src="../../images/doctor4.png"></iron-image>
@@ -367,7 +359,7 @@ class Appointment extends PolymerElement {
     localStorage.setItem('appointmentData',JSON.stringify(this.sourceData));
     this.openToast();
 
-    // waiting is true the spinner
+    // waiting is true show the spinner
     this.waiting =true;
 
     // applay the css style for #spennerOpacity id
@@ -377,7 +369,7 @@ class Appointment extends PolymerElement {
     // settimeout funtion is used to show the toast message
     setTimeout(()=> {
       
-    // when the form is submitted then route is redirect to booking-summary page
+    // when the form is submitted then route is redirect to booking-summary page and 1 scond dealy
       this.set('route.path', '/booking-summary');
     }, 1000);
     
