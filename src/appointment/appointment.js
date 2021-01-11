@@ -126,7 +126,7 @@ class Appointment extends PolymerElement {
         height: 140px;
     }
       .flex-container{
-        display: block;
+        flex-direction: column-reverse;
         width: 80%;
         margin:0 auto;
       }
@@ -161,7 +161,7 @@ class Appointment extends PolymerElement {
       width: 92%;
   }
   .flex-container .width{
-    margin: 0;
+    margin: 0 0 30px 0;
   }
   .custom {
     width: 250px;

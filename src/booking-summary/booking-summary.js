@@ -59,7 +59,7 @@ class BookingSummary extends PolymerElement {
                        <p><span>Consulting fee </span> <span class="pull-right"> ₹{{item.fee}} /-</span></p>
                        <p><span>Booking fee(10%) </span> <span class="pull-right">₹{{bookingFeeCharges}} /-</span></p>
                        <hr>
-                       <p><span>Total fee</span> <span class="pull-right">Rs {{total}} /-</span></p>
+                       <p><span>Total fee</span> <span class="pull-right">₹{{total}} /-</span></p>
                    </template>
                    </dom-repeat>
                        <paper-button  raised class="indigo" on-click="payment">Make Payment</paper-button>

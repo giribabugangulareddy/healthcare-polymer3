@@ -156,8 +156,8 @@ class Payment extends PolymerElement {
           <iron-form id="formOne" on-iron-form-response="onResponse">
               <form method="post" action="https://httpbin.org/post" is="iron-form">
               
+                <paper-input name="cardholder" placeholder="Card Holder Name"  auto-validate pattern="[a-zA-Z]*"    error-message="Enter Card Holder's Name" required ></paper-input>
                 <paper-input name="cardNumber" placeholder="Card Number"  auto-validate pattern="[0-9]*" maxlength="16" minlength="16"  error-message="Enter Card Number & should be 16 digits " required ></paper-input>
-
                 
                 <div class="flex-box">
                 <paper-dropdown-menu label="Expiry Month" class="pad10" auto-validate required error-message="Expiry Month">

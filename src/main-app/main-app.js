@@ -221,7 +221,7 @@ class MainApp extends PolymerElement {
 
 
 <!-- logout confirm popup modal -->
-<paper-dialog modal backdrdop id="dialog">
+<paper-dialog modal  id="dialog">
   <h2 class="res-font">Are you sure want to Logout ?</h2>    
   <div id="dialog-buttons">
     <paper-button dialog-dismiss on-tap="_modalCancelled">Cancel</paper-button>
@@ -295,10 +295,10 @@ static get observers(){
 
 _routerChanged(page){
 
-      /*Show the corresponding page according to the route.
+      /** Show the corresponding page according to the route.
      
-      If no page was found in the route data, page will be an empty string.
-      Show 'home' in that case.
+      * If no page was found in the route data, page will be an empty string.
+      * Show 'home' in that case.
       */
 
     console.log('page', page)
@@ -395,7 +395,7 @@ _pageChanged(page){
 openToast() {
   // when do the logout we have to show toast messages
 
-  this.$.toast.show({text: 'Successfully Logout', duration: 3000})
+  this.$.toast.show({text: 'Successfully Logout', duration: 3000});
 };
 
 
